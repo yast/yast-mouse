@@ -238,12 +238,17 @@ global define map Selection()
     locale translate = "";
     string mouse_name = "";
     map mice = SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] );
-    return mapmap( string mouse_code, list mouse_value, mice, 
+    map selection =  mapmap( string mouse_code, list mouse_value, mice, 
 	``{
 	translate = mouse_value[0]:"";
 	mouse_name = eval(translate);
 	return [mouse_code, mouse_name];
 	});
+    if (Mode::config)
+    {
+	selection["probe"] = _("Probe");
+    }
+    return selection;
     }
 
 //==========================================

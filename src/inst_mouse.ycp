@@ -46,8 +46,18 @@
      * ----------------------------------------------------------------------*/
 
     term probe_mouse_check_button = `Empty();
-
-    Wizard::OpenAcceptDialog();
+    term test_button = `Empty();
+    
+    if (Mode::config)
+    {
+	Wizard::ReplaceAbortButton(`Empty());
+    }
+    else
+    {
+	Wizard::OpenAcceptDialog();
+	test_button = `PushButton( `id(`apply), _("&Test") );
+    }
+    
     term contents =
       `VBox(
 	    `SelectionBox (`id(`mouse),
@@ -61,7 +71,7 @@
 			   } ) ),
 	    probe_mouse_check_button,
 	    `VSpacing(0.3),
-	    `PushButton( `id(`apply), _("&Test") ),
+	    test_button,
 	    `VSpacing(0.5)
 	    );
 
@@ -86,12 +96,14 @@ Use the arrow keys to select a mouse. If the selection bar does not
 move, hit the <b><i>Tab</i></b> key (maybe repeatedly) until it does.
 </p>
 ");
-
+    if (!Mode::config)
+    {
     // Help text 3 of 4
     help_text = help_text + _("<p>
 Use the <b>Test</b> button to apply and test the selected settings.
 </p>
 ");
+    }
 
     // Help text 4 of 4
     help_text = help_text + _("<p>
@@ -124,7 +136,7 @@ described in the manual.
 	UI::SetFocus(`id(`mouse));
 	ret = Wizard::UserInput();
 
-	if ( ret == `abort
+	if ( !Mode::config && ret == `abort
 	     && WFM::CallFunction(`inst_confirm_abort(`painless) ) )
 	{
 	    break;
@@ -137,6 +149,11 @@ described in the manual.
 	    if ( new_mouse != nil )
 	    {
 		Mouse::Set( new_mouse );
+		if (Mode::config)
+		{
+		    import "AIgeneral";
+		    AIgeneral::Mouse["id"] = Mouse::mouse;
+		}
 	    }
 
 	    if ( ret == `next && new_mouse != mouse_on_entry )
@@ -160,6 +177,7 @@ described in the manual.
 	//
 	Mouse::Set( mouse_on_entry );
     }
+ 
 
     Wizard::CloseDialog();
 
