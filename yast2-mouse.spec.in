@@ -29,6 +29,7 @@ Summary:	Setting the mouse
 
 %files
 %defattr(-,root,root)
+@ydatadir@/*.ycp
 @moduledir@/*.ycp
 @clientdir@/*.ycp
 %ifnarch s390 s390x
