@@ -113,7 +113,7 @@ described in the manual.
     // heading text
     Wizard::SetContents(_("Mouse configuration"), contents,
 			help_text,
-			WFM::Args(0), WFM::Args(1));
+			(boolean)WFM::Args(0), (boolean)WFM::Args(1));
 
 
     // Initially set the current mouse to establish a consistent state.
@@ -144,7 +144,7 @@ described in the manual.
 
 	if ( ret == `next || ret == `apply )
 	{
-	    string new_mouse = UI::QueryWidget(`id(`mouse), `CurrentItem);
+	    string new_mouse = (string) UI::QueryWidget(`id(`mouse), `CurrentItem);
 
 	    if ( new_mouse != nil )
 	    {
@@ -152,7 +152,7 @@ described in the manual.
 		if (Mode::config)
 		{
 		    import "AutoinstGeneral";
-		    AutoinstGeneral::Mouse["id"] = Mouse::mouse;
+		    AutoinstGeneral::mouse["id"] = Mouse::mouse;
 		}
 	    }
 
