@@ -320,7 +320,6 @@ global define void SetXMouse()
 	else
 	    {
 	    y2milestone( "Setting X mouse: %1", mset_command );
-	    SCR::Execute( .target.symlink, device, "/dev/mouse"); // WORKAROUND
 	    SCR::Execute( .target.bash, mset_command, $["DISPLAY" : ":0.0"] );
 	    }
 	}
@@ -585,7 +584,6 @@ global define void Save()
     ``{
     // ...
     // Save state to target.
-    // Symlink (/mnt)/dev/mouse to real mouse device.
     // ---
     if( Mode::update() )
 	{
@@ -594,10 +592,6 @@ global define void Save()
     y2milestone( "device %1 mouse %2 reprobe:%3", device, mouse, Stage::reprobe() );
     if( (device != "") || mouse=="none" || mouse=="ignore" || Stage::reprobe() )
 	{
-	if( device != "")
-	    {
-	    SCR::Execute(.target.symlink, device, "/dev/mouse");
-	    }
 	// if we have a mouse device, set gpm_param
 
 	SCR::Write( .sysconfig.mouse.FULLNAME, name);
