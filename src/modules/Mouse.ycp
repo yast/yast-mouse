@@ -305,8 +305,12 @@ global define void Save() ``{
 		SCR::Write(.sysconfig.mouse.YAST_MOUSE.comment,
 			"\n# The YaST-internal identifier of the attached mouse.\n#\n"
 		);
-		SCR::Write(.sysconfig.mouse.MOUSE, device);
+		SCR::Write(.sysconfig.mouse.MOUSEDEVICE, device);
 		// Comment written by third party
+		SCR::Write(.sysconfig.mouse.XMOUSEDEVICE,device);
+		SCR::Write(.sysconfig.mouse.XMOUSEDEVICE.comment,
+			"\n# Mouse device used for the X11 system.\n#\n"
+		);
 		SCR::Write(.sysconfig.mouse.BUTTONS, sformat( "%1", buttons ) );
 		SCR::Write(.sysconfig.mouse.BUTTONS.comment,
 			"\n# The number of buttons of the attached mouse.\n#\n"
