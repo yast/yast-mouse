@@ -46,6 +46,8 @@ global string unique_key = "";		    // unique key
 string name_lang = "";		        // language of name
 boolean already_probed = false;	    // memorize if already probed
 
+list plist = [];                    // list got from last probing
+
 //==========================================
 // Functions...
 //------------------------------------------
@@ -281,20 +283,20 @@ global define string Probe()
 	    {
 	    // already probed
 	    y2milestone("Initial: manual probing");
-	    do_really_probe( true );
+	    plist = do_really_probe( true );
 	    } 
 	else 
 	    {
 	    // not yet probed
 	    y2milestone("Initial: real HW-probing");
-	    do_really_probe( false );
+	    plist = do_really_probe( false );
 	    }
 	} 
     else if( Mode::reprobe ) 
 	{
 	// reprobe
 	y2milestone("Reprobe: real HW-probing");
-	do_really_probe ( false );
+	plist = do_really_probe ( false );
 	} 
     else 
 	{
@@ -303,8 +305,9 @@ global define string Probe()
 	// the libhd database to avoid erroneous HW-probing under Y11.
 	// ---
 	y2milestone("Running system: manual probing");
-	do_really_probe( true );
+	plist = do_really_probe( true );
 	}
+    y2milestone( "plist %1", plist );
     return mouse;
     }
 
@@ -382,10 +385,8 @@ global define void Save()
 	}
     if( Mode::initial || Mode::reprobe )
 	{
-	list plist = do_really_probe( true );
-	y2milestone( "mouse probe list %1", plist );
 	foreach( `e, plist, ``{
-	    y2milestone( "entry %1", e );
+	    y2milestone( "unique_key %2 entry %1", e, unique_key );
 	    if( e["unique_key"]:"" != unique_key )
 		{
 		y2milestone( "set needed to no for key %1", e["unique_key"]:"" );
@@ -533,6 +534,7 @@ define list do_really_probe( boolean manual )
 	y2warning("No mouse found, probed '%1'", mouseprobelist);
 	}
     y2milestone ("Mouse::Probe %1", mouse);
+    y2milestone ("unique_key %1", unique_key );
     return mouseprobelist;
     }
 }
