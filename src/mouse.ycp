@@ -50,7 +50,7 @@
     // On import the mouse module has read the sysconfig values and is initialized.
     // Let the user choose a new mouse.
     //
-    result =  CallFunction ( `inst_mouse( true, true ) );
+    result = WFM::CallFunction ( `inst_mouse( true, true ) );
 
     if ( result == `next )
     {
@@ -74,6 +74,6 @@
     {
 	y2milestone( "User cancelled --> no change" );
     }
-    
+
     return UI::CloseDialog();
 }

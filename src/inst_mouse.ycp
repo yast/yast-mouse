@@ -101,7 +101,7 @@ described in the manual.
 
     Wizard::SetContents(_("Mouse configuration"), contents,
 			help_text,
-			Args(0), Args(1));
+			WFM::Args(0), WFM::Args(1));
 
 
     // Initially set the current mouse to establish a consistent state.
@@ -125,7 +125,7 @@ described in the manual.
 	ret = Wizard::UserInput();
 
 	if ( ret == `abort
-	     && CallFunction(`inst_confirm_abort(`painless) ) )
+	     && WFM::CallFunction(`inst_confirm_abort(`painless) ) )
 	{
 	    break;
 	}
@@ -155,13 +155,13 @@ described in the manual.
     if ( ret == `back || ret == `cancel )
     {
 	y2milestone("`back or `cancel restoring: <%1>", mouse_on_entry );
-	
+
 	// Reset mouse to initial state.
 	//
 	Mouse::Set( mouse_on_entry );
     }
 
     Wizard::CloseDialog();
-    
+
     return ret;
 }
