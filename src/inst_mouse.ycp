@@ -17,6 +17,8 @@
     import "Mode";
     import "Mouse";
     import "Wizard";
+    import "Popup";
+
 
     /* ----------------------------------------------------------------------
      * Mouse
@@ -135,7 +137,7 @@ described in the manual.
 	ret = Wizard::UserInput();
 
 	if ( !Mode::config && ret == `abort
-	     && WFM::CallFunction(`inst_confirm_abort(`painless) ) )
+	     && Popup::ConfirmAbort (`painless) )
 	{
 	    break;
 	}

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Aug 31 15:02:38 CEST 2003 - arvin@suse.de
+
+- use Popup::ConfirmAbort
+
+-------------------------------------------------------------------
 Tue Aug 19 15:05:08 CEST 2003 - fehr@suse.de
 
 - remove include of obsolete common_functions.ycp
@@ -30,7 +35,7 @@ Mon Mar 17 17:45:46 CET 2003 - ms@suse.de
 -------------------------------------------------------------------
 Mon Feb 24 12:06:21 CET 2003  - fehr@suse.de
 
-- fix bug that manual setting get overridden by reprobe in 
+- fix bug that manual setting get overridden by reprobe in
   Mouse::Save() (#24120)
 - version 2.7.4
 
@@ -58,20 +63,20 @@ Mon Feb  3 17:36:22 CET 2003  - fehr@suse.de
 Wed Jan 29 12:26:28 CET 2003  - fehr@suse.de
 
 - patch proofreaded texts back into ycp
-- 2.7.2 
+- 2.7.2
 
 -------------------------------------------------------------------
 Thu Jan 16 11:55:50 CET 2003  - fehr@suse.de
 
 - add mouse type "ignore" to prevent calling YaST2 on system boot
   when mouse is attached occasionally (#20947)
-- 2.7.1 
+- 2.7.1
 
 -------------------------------------------------------------------
 Wed Nov 20 16:08:35 CET 2002  - fehr@suse.de
 
-- merged up to version 2.6.19 of 8.1 branch 
-- 2.7.0 
+- merged up to version 2.6.19 of 8.1 branch
+- 2.7.0
 
 -------------------------------------------------------------------
 Wed Sep 11 15:21:20 CEST 2002 - fehr@suse.de
