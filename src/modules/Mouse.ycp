@@ -246,6 +246,7 @@ global define map Selection()
 	});
     if (Mode::config)
     {
+	// label text
 	selection["probe"] = _("Probe");
     }
     return selection;

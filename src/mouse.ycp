@@ -67,6 +67,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //------------------------------------------
     if( Mode::reprobe && (Mouse::mouse=="none") ) 
 	{
+	// popup text
 	UI::TimedMessagePopup( _("No mouse connected to the system..."), 10);
 	y2milestone ( "No mouse detected --> unchanged" );
 	return UI::CloseDialog();

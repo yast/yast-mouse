@@ -62,7 +62,9 @@
 
 	ret =
 	    $[
+	      // label text
 	      "rich_text_title"	:	_( "Mouse"  ),
+	      // menue item text
 	      "menu_title"	:	_( "&Mouse" ),
 	      "id"		:	"mouse_stuff"
 	    ];

@@ -55,6 +55,7 @@
     else
     {
 	Wizard::OpenAcceptDialog();
+	// button text
 	test_button = `PushButton( `id(`apply), _("&Test") );
     }
     
@@ -111,6 +112,7 @@ If you select <b>None</b>, you have to use the keyboard as
 described in the manual.
 </p>");
 
+    // heading text
     Wizard::SetContents(_("Mouse configuration"), contents,
 			help_text,
 			WFM::Args(0), WFM::Args(1));
