@@ -36,43 +36,54 @@ string mouse_on_entry = Mouse::mouse;
 //==========================================
 // Check if this is a reconfiguration run.
 //------------------------------------------
-if ( Mode::reprobe ) {
+y2milestone( "Mode::reprobe %1 Mouse:%2", Mode::reprobe, Mouse::mouse );
+if( Mode::reprobe ) 
+    {
+    if( Mouse::mouse != "ignore" )
+	{
 	string hwupdate = "/usr/X11R6/lib/sax/tools/hwupdate";
 	string mouseID = Mouse::Probe();
-	if (mouseID == "none") {
-		SCR::Execute ( .target.bash, hwupdate + " --mouse");
-		Mouse::mouse = "non";
-	}
+	if (mouseID == "none") 
+	    {
+	    SCR::Execute ( .target.bash, hwupdate + " --mouse");
+	    Mouse::mouse = "none";
+	    }
 	Mouse::Set( Mouse::mouse );
-}
+	}
+    else 
+	{
+	}
+    }
 
-//==========================================
-// create the wizard dialog
-//------------------------------------------
-Wizard::CreateDialog();
+if( !Mode::reprobe || Mouse::mouse != "ignore" )
+    {
+    //==========================================
+    // create the wizard dialog
+    //------------------------------------------
+    Wizard::CreateDialog();
 
-//==========================================
-// check if no mouse is connected
-//------------------------------------------
-if (( Mode::reprobe ) && (Mouse::mouse == "non")) {
-	UI::TimedMessagePopup (
-		_( "No mouse connected to the system..." ), 10
-	);
+    //==========================================
+    // check if no mouse is connected
+    //------------------------------------------
+    if( Mode::reprobe && (Mouse::mouse=="none") ) 
+	{
+	UI::TimedMessagePopup( _( "No mouse connected to the system..." ), 10);
 	y2milestone ( "No mouse detected --> unchanged" );
 	return UI::CloseDialog();
-}
+	}
 
-//==========================================
-// call inst_mouse and init list according
-// to the sysconfig variables
-//------------------------------------------
-any result = nil;
-result =  WFM::CallFunction ( `inst_mouse( true, true ) );
+    //==========================================
+    // call inst_mouse and init list according
+    // to the sysconfig variables
+    //------------------------------------------
+    any result = nil;
+    result =  WFM::CallFunction ( `inst_mouse( true, true ) );
 
-//==========================================
-// handle result value from the config
-//------------------------------------------
-if ( result == `next ) {
+    //==========================================
+    // handle result value from the config
+    //------------------------------------------
+    if( result == `next ) 
+	{
 	// ...
 	// User accepted the the setting.
 	// Only if the user has chosen a different mouse change the
@@ -81,12 +92,18 @@ if ( result == `next ) {
 	y2milestone("User selected new mouse: <%1>", Mouse::mouse );
 	Mouse::Save();
 	}
-} else {
+    else 
+	{
 	// ...
 	// `cancel or `back selected
 	// ---
 	y2milestone( "User cancelled --> no change" );
-}
+	}
 
-return UI::CloseDialog();
+    return UI::CloseDialog();
+    }
+else
+    {
+    return( true );
+    }
 }

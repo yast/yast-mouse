@@ -53,7 +53,9 @@ $[
                $["mset":"ExplorerPS/2","gpm":"exps2",    "device":"/dev/psaux",      "emul3":false, "wheels":1 ]],
 "23_exps2" : [ _("IntelliMouse Explorer (USB)"),
                $["mset":"ExplorerPS/2","gpm":"exps2",    "device":"/dev/input/mice", "emul3":false, "wheels":1 ]],
-"non"      : [ _("NONE "),
+"none"     : [ _("NONE "),
+               $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]],
+"ignore"   : [ _("Ignore Mouse - regardless if one exists or not "),
                $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]]
 ]
 

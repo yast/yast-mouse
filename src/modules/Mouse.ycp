@@ -30,9 +30,9 @@ import "XF86Mouse";
 //==========================================
 // Globals accessed via Mouse::<variable>
 //------------------------------------------
-global string  mouse    = "non";	// current mouse
-global string  mset		= "";		// x11 config values
-global string  gpm		= "";		// gpm config values
+global string  mouse    = "none";	// current mouse
+global string  mset	= "";		// x11 config values
+global string  gpm	= "";		// gpm config values
 global string  device	= "";		// mouse device
 global boolean emul3	= false;	// emulate 3 buttons ?
 global integer wheels	= 0;		// number of wheels
@@ -315,9 +315,13 @@ global define void Save()
 	{
 	return;
 	}
-    if( (device != "") || (Mode::reprobe) ) 
+    y2milestone( "device %1 mouse %2 reprobe:%3", device, mouse, Mode::reprobe );
+    if( (device != "") || mouse=="none" || mouse=="ignore" || (Mode::reprobe) ) 
 	{
-	SCR::Execute(.target.symlink, device, "/dev/mouse");
+	if( device != "")
+	    {
+	    SCR::Execute(.target.symlink, device, "/dev/mouse");
+	    }
 	// if we have a mouse device, set gpm_param
 
 	SCR::Write( .sysconfig.mouse.FULLNAME, name);
@@ -370,16 +374,19 @@ global define void Save()
 	    y2milestone("Marked mouse <%1> as needed", unique_key );
 	    }
 	}
-    list plist = do_really_probe( true );
-    y2milestone( "mouse probe list %1", plist );
-    foreach( `e, plist, ``{
-	y2milestone( "entry %1", e );
-	if( e["unique_key"]:"" != unique_key )
-	    {
-	    y2milestone( "set needed to no for key %1", e["unique_key"]:"" );
-	    SCR::Write( .probe.status.needed, e["unique_key"]:"", `no );
-	    }
-	});
+    if( Mode::initial || Mode::reprobe )
+	{
+	list plist = do_really_probe( true );
+	y2milestone( "mouse probe list %1", plist );
+	foreach( `e, plist, ``{
+	    y2milestone( "entry %1", e );
+	    if( e["unique_key"]:"" != unique_key )
+		{
+		y2milestone( "set needed to no for key %1", e["unique_key"]:"" );
+		SCR::Write( .probe.status.needed, e["unique_key"]:"", `no );
+		}
+	    });
+	}
 
     // ...
     // Change the respective XF86Config content to match the current settings.

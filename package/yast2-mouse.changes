@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jan 16 11:55:50 CET 2003  - fehr@suse.de
+
+- add mouse type "ignore" to prevent calling YaST2 on system boot
+  when mouse is attached occasionally (#20947)
+- 2.7.1 
+
+-------------------------------------------------------------------
 Wed Nov 20 16:08:35 CET 2002  - fehr@suse.de
 
 - merged up to version 2.6.19 of 8.1 branch 
