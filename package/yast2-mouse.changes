@@ -1,7 +1,12 @@
 -------------------------------------------------------------------
+Sat Jan 31 22:26:36 CET 2004 - arvin@suse.de
+
+- additional fixes for new interpreter
+
+-------------------------------------------------------------------
 Fri Jan 23 10:38:27 CET 2004  - fehr@suse.de
 
-- first version suitable for new interpreter 
+- first version suitable for new interpreter
 - version 2.9.0
 
 -------------------------------------------------------------------
