@@ -1,31 +1,27 @@
-/**************
-FILE          : mouse.ycp
-***************
-PROJECT       : YaST2
-              :
-AUTHOR        : Marcus Schäfer <ms@suse.de>
-              :
-BELONGS TO    : YaST2
-              : (GPM mouse configuration module)
-              :
-DESCRIPTION   : mouse.ycp is the first instance called in
-              : front of the inst_mouse.ycp configuration module
-              : we will handle the reprobe case here and the
-              : return value from the configuration module which
-              : is needed to restore the mouse in special cases
-              :
-              :
-STATUS        : Development
-**************/
+/**
+ * File:	clients/mouse.ycp
+ * Package:	Mouse configuration
+ * Summary:	Main client
+ * Authors:	Marcus Schäfer <ms@suse.de>
+ *
+ * $Id$
+ *
+ * mouse.ycp is the first instance called in
+ * front of the inst_mouse.ycp configuration module
+ * we will handle the reprobe case here and the
+ * return value from the configuration module which
+ * is needed to restore the mouse in special cases
+ */
+
 {
+
 textdomain "mouse";
 
-import "Mouse";
-import "Mode";
-import "Wizard";
-
-import "Popup";
 import "Label";
+import "Mode";
+import "Mouse";
+import "Popup";
+import "Wizard";
 
 //==========================================
 // Memorize the current mouse.
@@ -36,20 +32,20 @@ string mouse_on_entry = Mouse::mouse;
 // Check if this is a reconfiguration run.
 //------------------------------------------
 y2milestone( "Mode::reprobe %1 Mouse:%2", Mode::reprobe, Mouse::mouse );
-if( Mode::reprobe ) 
+if( Mode::reprobe )
     {
     if( Mouse::mouse != "ignore" )
 	{
 	string hwupdate = "/usr/X11R6/lib/sax/tools/hwupdate";
 	string mouseID = Mouse::Probe();
-	if (mouseID == "none") 
+	if (mouseID == "none")
 	    {
 	    Mouse::mouse = "none";
 	    }
 	Mouse::Set( Mouse::mouse );
 	SCR::Execute ( .target.bash, hwupdate + " --mouse");
 	}
-    else 
+    else
 	{
 	}
     }
@@ -64,7 +60,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //==========================================
     // check if no mouse is connected
     //------------------------------------------
-    if( Mode::reprobe && (Mouse::mouse=="none") ) 
+    if( Mode::reprobe && (Mouse::mouse=="none") )
 	{
 	// popup text
 	Popup::TimedMessage( _("No mouse connected to the system..."), 10);
@@ -82,7 +78,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //==========================================
     // handle result value from the config
     //------------------------------------------
-    if( result == `next ) 
+    if( result == `next )
 	{
 	// ...
 	// User accepted the the setting.
@@ -92,7 +88,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
 	y2milestone("User selected new mouse: <%1>", Mouse::mouse );
 	Mouse::Save();
 	}
-    else 
+    else
 	{
 	// ...
 	// `cancel or `back selected
@@ -106,4 +102,6 @@ else
     {
     return( true );
     }
+
+/* EOF */
 }

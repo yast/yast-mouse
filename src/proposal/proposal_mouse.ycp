@@ -1,15 +1,18 @@
 /**
- * Module:		proposal_mouse.ycp
+ * File:	modules/Mouse.ycp
+ * Package:	Mouse configuration
+ * Summary:	Main module
+ * Authors:	Marcus Schäfer <ms@suse.de>
+ *		Klaus Kaempf <kkaempf@suse.de>
  *
  * $Id$
  *
- * Author:              Klaus Kaempf <kkaempf@suse.de>
- *
- * Purpose:		Proposal function dispatcher - mouse.
- *
- *			See also file proposal-API.txt for details.
+ * Proposal function dispatcher - mouse.
+ * See also file proposal-API.txt for details.
  */
+
 {
+
     textdomain "mouse";
 
     import "Mouse";
@@ -71,4 +74,6 @@
     }
 
     return ret;
+
+/* EOF */
 }

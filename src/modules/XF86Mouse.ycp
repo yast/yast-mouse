@@ -1,30 +1,32 @@
 /**
- * Module: 		XF86Mouse.ycp
- *
- * Authors: 		Thomas Roelz <tom@suse.de>
- *
- * Purpose:		Provides several functions to write/alter the mouse settings 
- *			in the X11 configuration.
- *
+ * File:	modules/XF86Mouse.ycp
+ * Package:	Mouse configuration
+ * Summary:	Main module
+ * Authors:	Marcus Schäfer <ms@suse.de>
+ *		Thomas Roelz <tom@suse.de>
  *
  * $Id$
  *
+ * Provides several functions to write/alter the mouse settings
+ * in the X11 configuration.
+ *
  * This module provides the following functions for public access via XF86Mouse::<func-name>(...)
  *
- * 	create_info_map()	- Create the map suitable for being passed to the isax-agent.
+ *	create_info_map()	- Create the map suitable for being passed to the isax-agent.
  *
  *	update()		- Update the XF86Config file.
  *
  * Remarks:
  *	Requires the modules Mouse and X11 to be up to date.
- *
  */
+
 {
+
     module "XF86Mouse";
     textdomain "mouse";
 
-    import "Mouse";
     import "Mode";
+    import "Mouse";
 
     // The XFree version has to be determined in different ways depending on mode.
     //
@@ -47,8 +49,8 @@
 	return;
     }
 
-       
-    
+
+
     /**
      * create_info_map()
      *
@@ -90,7 +92,7 @@
 	// mouse wheels
 	//
 	integer mouse_wheels = Mouse::wheels;
-	
+
         // raw buttons without wheel buttons. Only XFree 4.
 	//
 	integer mouse_buttons = Mouse::buttons;
@@ -109,7 +111,7 @@
 	// "emulate 3 buttons" is rather clumsy
 	//
 	string mouse_emu3btn = "";
-  
+
 	if ( Mouse::emul3 && mouse_buttons < 3 )	// emulate 3 buttons
 	{
 	    mouse_emu3btn = "yes";
@@ -164,4 +166,6 @@
 
 	return( ret );
     }
+
+/* EOF */
 }

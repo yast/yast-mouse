@@ -1,25 +1,21 @@
 /**
- *
- * File:
- *	inst_mouse.ycp
- *
- * Authors:
- *	Klaus Kämpf <kkaempf@suse.de>
- *	Michael Hager <mike@suse.de>
- *
- * Purpose:
- *	Let the user choose the mouse.
+ * File:	clients/mouse.ycp
+ * Package:	Mouse configuration
+ * Summary:	Main client
+ * Authors:	Marcus Schäfer <ms@suse.de>
+ *		Klaus Kämpf <kkaempf@suse.de>
+ *		Michael Hager <mike@suse.de>
  *
  * $Id$
- *
  */
+
 {
+
     textdomain "mouse";
 
     import "Arch";
     import "Mode";
     import "Mouse";
-
     import "Wizard";
 
     /* ----------------------------------------------------------------------
@@ -29,7 +25,7 @@
     // Memorize the current mouse to be able to restore it.
     //
     string mouse_on_entry = Mouse::mouse;
-    string mouse 	  = Mouse::mouse;
+    string mouse	  = Mouse::mouse;
 
 
     // Build the contents of the dialog.
@@ -47,7 +43,7 @@
 
     term probe_mouse_check_button = `Empty();
     term test_button = `Empty();
-    
+
     if (Mode::config)
     {
 	Wizard::ReplaceAbortButton(`Empty());
@@ -58,7 +54,7 @@
 	// button text
 	test_button = `PushButton( `id(`apply), _("&Test") );
     }
-    
+
     term contents =
       `VBox(
 	    `SelectionBox (`id(`mouse),
@@ -179,9 +175,11 @@ described in the manual.
 	//
 	Mouse::Set( mouse_on_entry );
     }
- 
+
 
     Wizard::CloseDialog();
 
     return ret;
+
+/* EOF */
 }
