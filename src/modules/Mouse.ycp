@@ -163,6 +163,7 @@ define list<map> do_really_probe( boolean manual )
 	    }
 	device  = firstmouse["dev_name"]:"";
 	unique_key = firstmouse["unique_key"]:"";
+	string bus = firstmouse["bus"]:"";
 	map mprotocol = firstmouse["mouse",0]:$[];	// "gpm" and "xf86"
 
 	y2milestone( "mprotocol: <%1>", mprotocol );
@@ -176,13 +177,26 @@ define list<map> do_really_probe( boolean manual )
 	// find mouse in database
 	// ---
 	map<string, list> mice = (map<string,list>)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
-	foreach( string mouse_id, list mouse_data, mice, ``{
-	    map data = mouse_data[1]:$[];
-	    if ((data["gpm"]:"" == gpm) && (data["device"]:"" == device))
+	list<list> tl = maplist( string mouse_id, list mouse_data, mice,
+				 ``{
+				 mouse_data[1,"id"] = mouse_id;
+				 return(mouse_data);
+				 });
+	tl = filter( list mouse_data, tl,
+		     ``(mouse_data[1,"gpm"]:"" == gpm &&
+		        mouse_data[1,"device"]:"" == device));
+	y2milestone( "gpm %1 device %2 bus %3", gpm, device, bus );
+	y2milestone( "tl = %1", tl );
+	if( size(tl)>1 )
+	    {
+	    if( find( list md, tl, ``(md[1,"bus"]:"" == bus)) != nil )
 		{
-		mouse = mouse_id;
+		tl = filter( list md, tl, ``(md[1,"bus"]:"" == bus));
+		y2milestone( "tl = %1", tl );
 		}
-	    });
+	    }
+	mouse = tl[0,1,"id"]:"none";
+	y2milestone( "found mouse %1", mouse );
 	} // mprotocol found
 
     if( mouse == "none" )
