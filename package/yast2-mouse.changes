@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Sep  6 16:40:12 CEST 2002 - fehr@suse.de
+
+- fix some Provides/Obsoletes
+- version 2.6.13
+
+-------------------------------------------------------------------
 Thu Sep  5 11:43:44 CEST 2002 - ms@suse.de
 
 - fixed loading of mousedev for ExplorerPS/2 based mice

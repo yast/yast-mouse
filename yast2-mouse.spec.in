@@ -9,6 +9,10 @@ Provides:	yast2-db-mouse
 Obsoletes:	yast2-db-mouse
 Provides:	yast2-trans-inst-mouse
 Obsoletes:	yast2-trans-inst-mouse
+Provides:       y2d_inst-mouse
+Obsoletes:      y2d_inst-mouse
+Provides:       y2t_inst-mouse
+Obsoletes:      y2t_inst-mouse
 
 BuildArchitectures:	noarch
 
