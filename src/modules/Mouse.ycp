@@ -228,7 +228,7 @@ global define string Probe()
     // ...
     // Don't expect a mouse with serial console.
     //
-    if( Mode::serial_console || Arch::s390 )
+    if( Mode::serial_console || Arch::s390 () )
 	{
 	return mouse;
 	}

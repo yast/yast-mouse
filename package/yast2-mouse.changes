@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Oct 11 16:39:04 CEST 2004 - jsrain@suse.cz
+
+- updated to new Arch:: interface
+
+-------------------------------------------------------------------
 Tue Sep 28 18:42:58 CEST 2004 - fehr@suse.de
 
 - fix incomplete retranslations (#46317)
