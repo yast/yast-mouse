@@ -13,12 +13,12 @@
 
     textdomain "mouse";
 
-    import "Arch";
     import "Mode";
     import "Stage";
     import "Mouse";
     import "Wizard";
     import "Popup";
+    import "GetInstArgs";
 
 
     /* ----------------------------------------------------------------------
@@ -114,7 +114,7 @@ described in the manual.
     // heading text
     Wizard::SetContents(_("Mouse configuration"), contents,
 			help_text,
-			(boolean)WFM::Args(0), (boolean)WFM::Args(1));
+			GetInstArgs::enable_back(), GetInstArgs::enable_next());
 
     Wizard::SetDesktopIcon("mouse");
     if( Stage::initial() )

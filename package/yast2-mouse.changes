@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Feb 11 05:03:21 CET 2005 - nashif@suse.de
+
+- Handle arguments to make it work with autoyast
+
+-------------------------------------------------------------------
 Mon Feb  7 14:11:10 CET 2005 - fehr@suse.de
 
 - patch proofread texts back into ycp
