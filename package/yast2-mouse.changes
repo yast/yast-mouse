@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Feb 26 20:31:26 CET 2004 - nashif@suse.de
+
+- Changed proposal file name proposal_* to *_proposal
+
+-------------------------------------------------------------------
 Mon Feb 23 11:20:32 CET 2004 - fehr@suse.de
 
 - device name cannot used to decide if PS/2 port or USB mouse (34713)
