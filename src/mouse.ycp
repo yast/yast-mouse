@@ -55,6 +55,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //==========================================
     // create the wizard dialog
     //------------------------------------------
+    Wizard::SetDesktopIcon("mouse");
     Wizard::CreateDialog();
 
     //==========================================
