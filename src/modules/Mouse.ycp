@@ -324,6 +324,10 @@ global define void Save() ``{
 		SCR::Write(.sysconfig.mouse.XMOUSETYPE.comment,
 			"\n# The mouse type under X11, e.g. \"ps/2\"\n#\n"
 		);
+		SCR::Write(.sysconfig.mouse.MOUSETYPE, mset);
+		SCR::Write(.sysconfig.mouse.MOUSETYPE.comment,
+			"\n# The GPM mouse type, e.g. \"ps2\"\n#\n"
+		);
 		}
 		SCR::Write(.sysconfig.mouse, nil); // flush
 		y2milestone("Saved sysconfig data for mouse: <%1>", name );
