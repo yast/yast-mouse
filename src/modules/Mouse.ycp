@@ -16,7 +16,6 @@ module "Mouse";
 textdomain "mouse";
 
 import "Arch";
-import "Language";
 import "Misc";
 import "Mode";
 import "ModuleLoading";
@@ -37,7 +36,6 @@ global string unique_key = "";		    // unique key
 //==========================================
 // Module globals
 //------------------------------------------
-string name_lang = "";		        // language of name
 boolean already_probed = false;	    // memorize if already probed
 
 list<map> plist = [];                    // list got from last probing
@@ -376,11 +374,6 @@ global define string MakeProposal( boolean force_reset,
     y2milestone("force_reset: %1", force_reset);
     y2milestone("language_changed: %1", language_changed);
 
-    if( name_lang != Language::language )
-	{
-	language_changed = true;
-	name_lang = Language::language;
-	}
     if( force_reset )
 	{
 	string mouse_id = Probe();

@@ -1,5 +1,5 @@
 @HEADER-COMMENT@
-# neededforbuild yast2-devel-packages yast2-country yast2 yast2-installation
+# neededforbuild yast2-devel-packages
 
 @HEADER@
 Requires:	yast2

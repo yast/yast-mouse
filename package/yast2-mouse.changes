@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar  3 15:47:42 CET 2004 - msvec@suse.cz
+
+- dropped duplicated language_change detection from proposal
+- reduced NFB accordingly
+
+-------------------------------------------------------------------
 Thu Feb 26 20:31:26 CET 2004 - nashif@suse.de
 
 - Changed proposal file name proposal_* to *_proposal
