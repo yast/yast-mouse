@@ -549,8 +549,7 @@ global define boolean xf86_update()
     return( ret );
     }
 
-/* EOF */
-}
+
 //==========================================
 // Save...
 //------------------------------------------
@@ -625,7 +624,7 @@ global define void Save()
 	}
     if( Mode::initial || Mode::reprobe )
 	{
-	foreach( `e, plist, ``{
+	foreach( map e, plist, ``{
 	    y2milestone( "unique_key %2 entry %1", e, unique_key );
 	    if( e["unique_key"]:"" != unique_key )
 		{

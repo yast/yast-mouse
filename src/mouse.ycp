@@ -73,7 +73,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     // to the sysconfig variables
     //------------------------------------------
     any result = nil;
-    result =  WFM::CallFunction ( `inst_mouse( true, true ) );
+    result =  WFM::CallFunction ( "inst_mouse", [ true, true ] );
 
     //==========================================
     // handle result value from the config
