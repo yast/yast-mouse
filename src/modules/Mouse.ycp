@@ -314,6 +314,10 @@ global define void SetXMouse()
 	    {
 	    y2milestone("Not setting X mouse due to text mode");
 	    }
+	else if( SCR::Read( .target.size, fpath )<=0 )
+	    {
+	    y2milestone("Not setting X mouse due to missing xmset binary");
+	    }
 	else
 	    {
 	    y2milestone( "Setting X mouse: %1", mset_command );

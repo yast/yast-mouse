@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 26 16:01:25 CET 2005 - fehr@suse.de
+
+- fix call to xmset without X11 installed (#50207)
+- 2.11.2
+
+-------------------------------------------------------------------
 Fri Jan  7 10:58:07 CET 2005 - jsuchome@suse.cz
 
 - added basic command-line support
