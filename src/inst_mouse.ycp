@@ -151,8 +151,8 @@ described in the manual.
 		Mouse::Set( new_mouse );
 		if (Mode::config)
 		{
-		    import "AIgeneral";
-		    AIgeneral::Mouse["id"] = Mouse::mouse;
+		    import "AutoinstGeneral";
+		    AutoinstGeneral::Mouse["id"] = Mouse::mouse;
 		}
 	    }
 
