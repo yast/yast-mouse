@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Apr 02 15:59:59 CEST 2004 - arvin@suse.de
+
+- finally changed license to GPL for good
+
+-------------------------------------------------------------------
 Tue Mar 30 19:14:08 CEST 2004 - fehr@suse.de
 
 - fix confusing mouse dialog, bus type can again be detected (#35819)
