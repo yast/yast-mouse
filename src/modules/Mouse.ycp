@@ -62,16 +62,11 @@ global define void Mouse() ``{
 	if ( Mode::initial || Mode::config ) {
 		return;
 	}
-	if ( Mode::cont ) {
-		y2milestone("Continue: manual probing");
-		do_really_probe( true );
-	} else {
-		// ...
-		// Running system: Restore formerly stored state
-		// from sysconfig.
-		// ---
-		Restore();
-	}
+	// ...
+	// Running system: Restore formerly stored state
+	// from sysconfig.
+	// ---
+	Restore();
 }
 
 //==========================================
