@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar  4 10:48:33 CET 2005 - ms@suse.de
+
+- fixed xmset call crashing the X-Server (#67302)
+
+-------------------------------------------------------------------
 Fri Feb 11 05:03:21 CET 2005 - nashif@suse.de
 
 - Handle arguments to make it work with autoyast
