@@ -185,16 +185,17 @@ global define void SetXMouse() ``{
 		device, mset, do_emul3
 	);
 	if ( Mode::test ) {
-		y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
+	    y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
 	} else {
-    if ( Mode::text ) {
+	    if ( Mode::text ) {
 		y2milestone("Not setting X mouse due to text mode");
-	} else {
+	    } else {
 		y2milestone ("Setting X mouse: %1", mset_command );
+		SCR::Execute (.target.symlink, device, "/dev/mouse"); // WORKAROUND
 		SCR::Execute(
-			.target.bash, mset_command, $["DISPLAY" : ":0.0"] 
-		);
-	}
+			     .target.bash, mset_command, $["DISPLAY" : ":0.0"]
+			     );
+	    }
 	}
 }
 

@@ -1,7 +1,12 @@
 -------------------------------------------------------------------
+Tue Aug 13 19:24:51 CEST 2002 - arvin@suse.de
+
+- create symbolic link to /dev/mouse (workaround for xmset)
+
+-------------------------------------------------------------------
 Tue Jul 30 16:59:48 CEST 2002 - ms@suse.de
 
-- changed variable naming: MOUSE -> MOUSEDEVICE 
+- changed variable naming: MOUSE -> MOUSEDEVICE
 
 -------------------------------------------------------------------
 Tue Jul 30 15:58:53 CEST 2002 - ms@suse.de
@@ -61,7 +66,7 @@ Mon Jun 24 12:47:46 CEST 2002 - kkaempf@suse.de
 -------------------------------------------------------------------
 Mon May 27 18:18:51 CEST 2002 - sh@suse.de
 
-- Added missing files to files list 
+- Added missing files to files list
 
 -------------------------------------------------------------------
 Wed May 22 16:46:59 MEST 2002 - tom@suse.de
