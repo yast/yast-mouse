@@ -52,6 +52,17 @@ if ( Mode::reprobe ) {
 Wizard::CreateDialog();
 
 //==========================================
+// check if no mouse is connected
+//------------------------------------------
+if (( Mode::reprobe ) && (Mouse::mouse == "non")) {
+	UI::TimedMessagePopup (
+		_( "No mouse connected to the system..." ), 10
+	);
+	y2milestone ( "No mouse detected --> unchanged" );
+	return UI::CloseDialog();
+}
+
+//==========================================
 // call inst_mouse and init list according
 // to the sysconfig variables
 //------------------------------------------
@@ -67,23 +78,8 @@ if ( result == `next ) {
 	// Only if the user has chosen a different mouse change the
 	// system configuration.
 	// ---
-	if ( mouse_on_entry != Mouse::mouse ) {
-		y2milestone("User selected new mouse: <%1>", Mouse::mouse );
-		Mouse::Save();
-		// ...
-		// According to ro@suse.de it doesn't make sense to run individual
-		// SuSEcongig modules because the set of modules and the variables
-		// they contain may change any time.
-		// ==> full SuSEconfig run
-		//
-		// This is currently commented out because it's not necessary anymore.
-		// Leave it in since this may change again very soon.
-		//
-		// textdomain "general";
-		// WFM::CallFunction( `inst_suseconfig( false, false ) );
-		// ---
-	} else {
-		y2milestone( "Mouse not changed --> doing nothing" );
+	y2milestone("User selected new mouse: <%1>", Mouse::mouse );
+	Mouse::Save();
 	}
 } else {
 	// ...

@@ -24,6 +24,8 @@ import "Language";
 import "Misc";
 import "Mode";
 import "ModuleLoading";
+import "X11Version";
+import "XF86Mouse";
 
 //==========================================
 // Globals accessed via Mouse::<variable>
@@ -54,6 +56,9 @@ global define void Mouse() ``{
 	// This is done only once (and automatically) when the module is
 	// loaded for the first time.
 	// ---
+	y2milestone( "Mode::initial %1 Mode::config %2 Mode::reprobe %3 Mode::cont %4",
+	             Mode::initial, Mode::config, Mode::reprobe, 
+		     Mode::cont );
 	if ( Mode::initial || Mode::config ) {
 		return;
 	}
@@ -346,13 +351,16 @@ global define void Save() ``{
 	// ==> Only mark after probing!
 	//
 	y2milestone( "configured mouse key %1", unique_key );
-	if ( unique_key != "" ) {
+	if ( unique_key != "" ) 
+	    {
 		SCR::Write( .probe.status.configured, unique_key, `yes );
 		y2milestone("Marked mouse <%1> as configured", unique_key );
-		if ( ! Mode::serial_console ) {
+	    if( !Mode::serial_console ) 
+		{
 			SCR::Write( .probe.status.needed, unique_key, `yes );
 			y2milestone("Marked mouse <%1> as needed", unique_key );
 		}
+	    }
 		list plist = do_really_probe( true );
 		y2milestone( "mouse probe list %1", plist );
 		foreach( `e, plist, ``{
@@ -361,12 +369,17 @@ global define void Save() ``{
 			{
 			y2milestone( "set needed to no for key %1", 
 			             e["unique_key"]:"" );
-			SCR::Write( .probe.status.needed, e["unique_key"]:"",
-			            `no );
+		SCR::Write( .probe.status.needed, e["unique_key"]:"", `no );
 			}
 		    });
-	} else {
-		y2milestone("NOT marking mouse as configured (no unique_key)");
+
+	// ...
+	// Change the respective XF86Config content to match the current settings.
+	// Do this only in the running system _and_ if XFree4 is installed.
+	// ---
+	if ( X11Version::version == "4" && ( Mode::normal || Mode::reprobe ) ) {
+		y2milestone ( "Storing settings into XF86Config file (XFree4).");
+		XF86Mouse::update();
 	}
 	y2milestone("Saved data for mouse: <%1>", name );
 	return;
@@ -448,7 +461,20 @@ define list do_really_probe( boolean manual ) ``{
 		// ...
 		// get value from bus, select first mouse
 		//
-		map firstmouse = mouseprobelist[0]:$[];
+		map firstmouse = $[];
+		integer idx=0;
+		while( size(firstmouse)==0 && idx<size(mouseprobelist) )
+		    {
+		    map conf = SCR::Read(.probe.status, 
+		                         mouseprobelist[idx,"unique_key"]:"");
+		    y2milestone( "key %1 conf %2", 
+		                 mouseprobelist[idx,"unique_key"]:"", conf );
+		    if( conf["available"]:`no == `yes )
+			{
+			firstmouse = mouseprobelist[idx]:$[];
+			}
+		    idx = idx + 1;
+		    }
 		device  = firstmouse["dev_name"]:"";
 		unique_key = firstmouse["unique_key"]:"";
 		map mprotocol = firstmouse["mouse",0]:$[];	// "gpm" and "xf86"

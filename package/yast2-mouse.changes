@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Nov 20 16:08:35 CET 2002  - fehr@suse.de
+
+- merged up to version 2.6.19 of 8.1 branch 
+- 2.7.0 
+
+-------------------------------------------------------------------
 Wed Sep 11 15:21:20 CEST 2002 - fehr@suse.de
 
 - fix wrong name for sysconfig entry MOUSE->MOUSEDEICE (#19450)
