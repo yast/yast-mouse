@@ -1,0 +1,163 @@
+/**
+ * File:	clients/mouse.ycp
+ * Package:	Mouse configuration
+ * Summary:	Main client
+ * Authors:	Marcus Schäfer <ms@suse.de>
+ *
+ * $Id$
+ *
+ * mouse.ycp is the first instance called in
+ * front of the inst_mouse.ycp configuration module
+ * we will handle the reprobe case here and the
+ * return value from the configuration module which
+ * is needed to restore the mouse in special cases
+ */
+
+{
+
+textdomain "mouse";
+
+import "CommandLine";
+import "Label";
+import "Stage";
+import "Mouse";
+import "Popup";
+import "Wizard";
+
+//==========================================
+// Memorize the current mouse.
+//------------------------------------------
+string mouse_on_entry = "";
+
+/**
+ * read mouse settings
+ */
+define boolean MouseRead () {
+
+    //==========================================
+    // Memorize the current mouse.
+    //------------------------------------------
+    mouse_on_entry = Mouse::mouse;
+    y2milestone( "Stage::reprobe %1 Mouse:%2", Stage::reprobe(), Mouse::mouse);
+    return true;
+}
+
+/**
+ * write mouse settings
+ */
+define boolean MouseWrite () {
+
+    Mouse::Save();
+    return true;
+}
+
+/**
+ * print mouse configuration summary
+ */
+define boolean MouseSummaryHandler (map options) {
+
+    foreach (string mouse_code, string name, Mouse::Selection (), {
+	if (mouse_on_entry == mouse_code)
+	    // summary entry
+	    CommandLine::Print (sformat (_("Current mouse type: %1"), name));
+    });
+    return false;// = do not call write
+}
+
+/**
+ * the mouse configuration sequence
+ */
+define any MouseSequence () {
+
+    MouseRead ();
+    //==========================================
+    // Check if this is a reconfiguration run.
+    //------------------------------------------
+    if( Stage::reprobe() )
+    {
+    if( Mouse::mouse != "ignore" )
+	{
+	string hwupdate = "/usr/X11R6/lib/sax/tools/hwupdate";
+	string mouseID = Mouse::Probe();
+	if (mouseID == "none")
+	    {
+	    Mouse::mouse = "none";
+	    }
+	Mouse::Set( Mouse::mouse );
+	SCR::Execute ( .target.bash, hwupdate + " --mouse");
+	}
+    }
+
+    any result = `cancel;
+    if( !Stage::reprobe() || Mouse::mouse != "ignore" )
+    {
+    //==========================================
+    // create the wizard dialog
+    //------------------------------------------
+    Wizard::CreateDialog();
+
+    //==========================================
+    // check if no mouse is connected
+    //------------------------------------------
+    if( Stage::reprobe() && (Mouse::mouse=="none") )
+	{
+	// popup text
+	Popup::TimedMessage( _("No mouse connected to the system..."), 10);
+	y2milestone ( "No mouse detected --> unchanged" );
+	return UI::CloseDialog();
+	}
+
+    //==========================================
+    // call inst_mouse and init list according
+    // to the sysconfig variables
+    //------------------------------------------
+    result =  WFM::CallFunction ( "inst_mouse", [ true, true ] );
+
+    //==========================================
+    // handle result value from the config
+    //------------------------------------------
+    if( result == `next )
+	{
+	// ...
+	// User accepted the the setting.
+	// Only if the user has chosen a different mouse change the
+	// system configuration.
+	// ---
+	y2milestone("User selected new mouse: <%1>", Mouse::mouse );
+	MouseWrite ();
+	}
+    else
+	{
+	// ...
+	// `cancel or `back selected
+	// ---
+	y2milestone( "User cancelled --> no change" );
+	}
+
+    UI::CloseDialog();
+    }
+    return result;
+}
+
+/* -- the command line description map -------------------------------------- */
+map cmdline = $[
+    "id"		: "mouse",
+    // translators: command line help text for mouse module
+    "help"		: _("Mouse configuration."),
+    "guihandler"	: MouseSequence,
+    "initialize"	: MouseRead,
+    "finish"		: MouseWrite,
+    "actions"		: $[
+	"summary" :$[
+	    "handler"	: MouseSummaryHandler,
+	    // command line help text for 'summary' action
+	    "help"	: _("Mouse configuration summary."),
+	],
+    ],
+];
+
+CommandLine::Run (cmdline);
+return true;
+
+/* EOF */
+}

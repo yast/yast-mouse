@@ -1,0 +1,43 @@
+@HEADER-COMMENT@
+# neededforbuild yast2-devel-packages
+
+@HEADER@
+Requires:	yast2
+Provides:	yast2-config-mouse
+Obsoletes:	yast2-config-mouse
+Provides:	yast2-db-mouse
+Obsoletes:	yast2-db-mouse
+Provides:	yast2-trans-inst-mouse
+Obsoletes:	yast2-trans-inst-mouse
+Provides:       y2d_inst-mouse
+Obsoletes:      y2d_inst-mouse
+Provides:       y2t_inst-mouse
+Obsoletes:      y2t_inst-mouse
+
+Summary:	Setting the mouse
+
+%description
+-
+
+@PREP@
+
+@BUILD@
+
+@INSTALL@
+
+%ifarch s390 s390x
+rm -f $RPM_BUILD_ROOT@desktopdir@/mouse.desktop
+%endif
+
+@CLEAN@
+
+%files
+%defattr(-,root,root)
+@ydatadir@/*.ycp
+@moduledir@/*
+@clientdir@/*.ycp
+%ifnarch s390 s390x
+@desktopdir@/mouse.desktop
+%endif
+@scrconfdir@/*.scr
+%doc @docdir@

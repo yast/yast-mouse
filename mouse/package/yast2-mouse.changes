@@ -1,0 +1,393 @@
+-------------------------------------------------------------------
+Wed Jan 26 16:01:25 CET 2005 - fehr@suse.de
+
+- fix call to xmset without X11 installed (#50207)
+- 2.11.2
+
+-------------------------------------------------------------------
+Fri Jan  7 10:58:07 CET 2005 - jsuchome@suse.cz
+
+- added basic command-line support
+
+-------------------------------------------------------------------
+Tue Oct 26 18:32:43 CEST 2004 - fehr@suse.de
+
+- updated to new Mode/Stage interface
+- 2.11.1
+
+-------------------------------------------------------------------
+Mon Oct 11 16:39:04 CEST 2004 - jsrain@suse.cz
+
+- updated to new Arch:: interface
+- 2.11.0
+
+-------------------------------------------------------------------
+Tue Sep 28 18:42:58 CEST 2004 - fehr@suse.de
+
+- fix incomplete retranslations (#46317)
+- 2.10.5
+
+-------------------------------------------------------------------
+Wed Sep 22 13:42:08 CEST 2004 - fehr@suse.de
+
+- place calls to SetDesktopIcon where they work (#45714)
+- 2.10.4
+
+-------------------------------------------------------------------
+Wed Sep  8 14:52:07 CEST 2004 - fehr@suse.de
+
+- Change desktop files (#44824)
+- 2.10.3
+
+-------------------------------------------------------------------
+Tue Aug 17 15:54:10 CEST 2004 - fehr@suse.de
+
+- rename module "hid" to "usbhid" (#36766)
+- 2.10.2
+
+-------------------------------------------------------------------
+Thu Jul 15 10:36:34 CEST 2004 - fehr@suse.de
+
+- merged SuSE-Linux-9_1-Branch 
+- 2.10.1
+
+-------------------------------------------------------------------
+Fri Apr 07 15:59:59 CEST 2004 - arvin@suse.de
+
+- fix bug with wrong mouse type during first YaST2 boot (#37819)
+- 2.9.11
+
+-------------------------------------------------------------------
+Fri Apr 02 15:59:59 CEST 2004 - arvin@suse.de
+
+- finally changed license to GPL for good
+
+-------------------------------------------------------------------
+Tue Mar 30 19:14:08 CEST 2004 - fehr@suse.de
+
+- fix confusing mouse dialog, bus type can again be detected (#35819)
+- 2.9.9
+
+-------------------------------------------------------------------
+Wed Mar 10 01:48:12 CET 2004 - sh@suse.de
+
+- V 2.9.8
+- Fixed CreateDialog() / SetIcon() order 
+
+-------------------------------------------------------------------
+Mon Mar  8 17:46:18 CET 2004 - fehr@suse.de
+
+- add calls to Wizard::SetDesktopIcon(...);
+- version 2.9.7
+
+-------------------------------------------------------------------
+Wed Mar  3 15:47:42 CET 2004 - msvec@suse.cz
+
+- dropped duplicated language_change detection from proposal
+- reduced NFB accordingly
+- version 2.9.6
+
+-------------------------------------------------------------------
+Thu Feb 26 20:31:26 CET 2004 - nashif@suse.de
+
+- Changed proposal file name proposal_* to *_proposal
+- version 2.9.5
+
+-------------------------------------------------------------------
+Mon Feb 23 11:20:32 CET 2004 - fehr@suse.de
+
+- device name cannot used to decide if PS/2 port or USB mouse (34713)
+- version 2.9.4
+
+-------------------------------------------------------------------
+Mon Feb 09 16:59:21 CET 2004 - arvin@suse.de
+
+- disabled loading of kernel modules input and mousedev
+
+-------------------------------------------------------------------
+Sat Feb  7 09:52:47 CET 2004 - nashif@suse.de
+
+- remove y2cc file
+- 2.9.2
+
+-------------------------------------------------------------------
+Sat Jan 31 22:26:36 CET 2004 - arvin@suse.de
+
+- additional fixes for new interpreter
+- version 2.9.1
+
+-------------------------------------------------------------------
+Fri Jan 23 10:38:27 CET 2004  - fehr@suse.de
+
+- first version suitable for new interpreter
+- version 2.9.0
+
+-------------------------------------------------------------------
+Mon Sep 22 13:10:27 CEST 2003 - fehr@suse.de
+
+- do not call SetXMouse if no mouse device was detected (#31537)
+- 2.8.7
+
+-------------------------------------------------------------------
+Sun Sep 14 20:35:49 CEST 2003 - adrian@suse.de
+
+- make it working inside of kcontrol
+
+-------------------------------------------------------------------
+Mon Sep  8 13:16:55 CEST 2003 - fehr@suse.de
+
+- prevent return of nil in do_really_probe
+- 2.8.5
+
+-------------------------------------------------------------------
+Sun Aug 31 15:02:38 CEST 2003 - arvin@suse.de
+
+- use Popup::ConfirmAbort
+
+-------------------------------------------------------------------
+Tue Aug 19 15:05:08 CEST 2003 - fehr@suse.de
+
+- remove include of obsolete common_functions.ycp
+- 2.8.3
+
+-------------------------------------------------------------------
+Sat Aug 16 21:42:39 CEST 2003 - arvin@suse.de
+
+- added desktop files
+
+-------------------------------------------------------------------
+Tue Jun 10 14:36:04 CEST 2003 - fehr@suse.de
+
+- Use new Modules Label and Popup wherever possible
+
+-------------------------------------------------------------------
+Thu Jun  5 16:47:56 CEST 2003 - fehr@suse.de
+
+- make it build under new rules (unpackaged files)
+- 2.8.1
+
+-------------------------------------------------------------------
+Mon Mar 17 17:45:46 CET 2003 - ms@suse.de
+
+- call hwupdate every time the mouse dialog is called
+  in reprobe mode to update all hw flags from all mice
+  (#25510)
+
+-------------------------------------------------------------------
+Mon Feb 24 12:06:21 CET 2003  - fehr@suse.de
+
+- fix bug that manual setting get overridden by reprobe in
+  Mouse::Save() (#24120)
+- version 2.7.4
+
+-------------------------------------------------------------------
+Thu Feb 20 09:41:05 CET 2003  - fehr@suse.de
+
+- use sentence style capitalisation in y2cc files (#23848)
+
+-------------------------------------------------------------------
+Wed Feb 19 15:36:01 CET 2003  - fehr@suse.de
+
+- add comments to texts for translators (#23774)
+
+-------------------------------------------------------------------
+Mon Feb 17 17:17:01 CET 2003  - fehr@suse.de
+
+- version 2.7.3
+
+-------------------------------------------------------------------
+Mon Feb  3 17:36:22 CET 2003  - fehr@suse.de
+
+- pot file now in source tarball
+
+-------------------------------------------------------------------
+Wed Jan 29 12:26:28 CET 2003  - fehr@suse.de
+
+- patch proofreaded texts back into ycp
+- 2.7.2
+
+-------------------------------------------------------------------
+Thu Jan 16 11:55:50 CET 2003  - fehr@suse.de
+
+- add mouse type "ignore" to prevent calling YaST2 on system boot
+  when mouse is attached occasionally (#20947)
+- 2.7.1
+
+-------------------------------------------------------------------
+Wed Nov 20 16:08:35 CET 2002  - fehr@suse.de
+
+- merged up to version 2.6.19 of 8.1 branch
+- 2.7.0
+
+-------------------------------------------------------------------
+Wed Sep 11 15:21:20 CEST 2002 - fehr@suse.de
+
+- fix wrong name for sysconfig entry MOUSE->MOUSEDEICE (#19450)
+- 2.6.16
+
+-------------------------------------------------------------------
+Mon Sep  9 22:06:53 CEST 2002 - kkaempf@suse.de
+
+- re-include mouse_raw.ycp
+- 2.6.15
+
+-------------------------------------------------------------------
+Mon Sep  9 11:26:49 CEST 2002 - fehr@suse.de
+
+- remove mouse entry from y2cc for S390 (#19196)
+- version 2.6.14
+
+-------------------------------------------------------------------
+Fri Sep  6 16:40:12 CEST 2002 - fehr@suse.de
+
+- fix some Provides/Obsoletes
+- version 2.6.13
+
+-------------------------------------------------------------------
+Thu Sep  5 11:43:44 CEST 2002 - ms@suse.de
+
+- fixed loading of mousedev for ExplorerPS/2 based mice
+- version 2.6.12
+
+-------------------------------------------------------------------
+Mon Sep  2 16:31:00 CEST 2002 - fehr@suse.de
+
+- version 2.6.11
+
+-------------------------------------------------------------------
+Fri Aug 30 12:24:35 CEST 2002 - ms@suse.de
+
+- add ExplorerPS/2 entries to mouse_raw.ycp (#18625)
+
+-------------------------------------------------------------------
+Tue Aug 27 20:00:00 CEST 2002 - jsuchome@suse.cz
+
+- provide/obsolete old translation packages
+
+-------------------------------------------------------------------
+Mon Aug 26 15:33:10 CEST 2002 - fehr@suse.de
+
+- set unconfigured mouse devices to "needed no" in HwInfo (#18252)
+- version 2.6.10
+
+-------------------------------------------------------------------
+Tue Aug 13 19:24:51 CEST 2002 - arvin@suse.de
+
+- create symbolic link to /dev/mouse (workaround for xmset)
+
+-------------------------------------------------------------------
+Tue Jul 30 16:59:48 CEST 2002 - ms@suse.de
+
+- changed variable naming: MOUSE -> MOUSEDEVICE
+
+-------------------------------------------------------------------
+Tue Jul 30 15:58:53 CEST 2002 - ms@suse.de
+
+- add MOUSETYPE to /etc/sysconfig/mouse (#17266)
+
+-------------------------------------------------------------------
+Fri Jul 26 16:14:30 CEST 2002 - ms@suse.de
+
+- fixed handling if mouse is disconnected (#16239)
+
+-------------------------------------------------------------------
+Tue Jul 23 13:48:28 CEST 2002 - fehr@suse.de
+
+- add eval() around assignment of locale to string
+- fix wrong data structure in mouse_raw.ycp
+
+-------------------------------------------------------------------
+Tue Jul 23 12:15:14 CEST 2002 - fehr@suse.de
+
+- change it so that the mouse_db.ycp file is not needed any more
+
+-------------------------------------------------------------------
+Tue Jul 23 09:36:24 CEST 2002 - fehr@suse.de
+
+- regenerated potfile with new entries from mouse_raw.ycp
+
+-------------------------------------------------------------------
+Mon Jul 15 16:19:44 CEST 2002 - fehr@suse.de
+
+- fix namespace lookup
+
+-------------------------------------------------------------------
+Tue Jul  9 13:53:13 CEST 2002 - mvidner@suse.cz
+
+- Provide/Obsolete yast2-db-mouse
+
+-------------------------------------------------------------------
+Thu Jul  4 17:32:24 CEST 2002 - fehr@suse.de
+
+- version generated by new devtools
+
+-------------------------------------------------------------------
+Fri Jun 28 14:44:43 CEST 2002 - fehr@suse.de
+
+- version 2.6.6
+- adapt to new naming scheme for potfiles
+- first package with new cvs
+- datafiles now in /usr/lib/YaST2/data
+
+-------------------------------------------------------------------
+Mon Jun 24 12:47:46 CEST 2002 - kkaempf@suse.de
+
+- merge mouse related stuff from yast2.rpm
+- rename to "yast2-mouse"
+
+-------------------------------------------------------------------
+Mon May 27 18:18:51 CEST 2002 - sh@suse.de
+
+- Added missing files to files list
+
+-------------------------------------------------------------------
+Wed May 22 16:46:59 MEST 2002 - tom@suse.de
+
+- Invented modules dir.
+  Moved X11 functionality from mouse.ycp to Mouse.ycp.
+
+-------------------------------------------------------------------
+Tue May  7 18:50:36 MEST 2002 - tom@suse.de
+
+- Integration of core functionality (formerly in yast2 package) finished.
+
+-------------------------------------------------------------------
+Mon Apr 22 14:00:23 MEST 2002 - tom@suse.de
+
+- Merge with 8.0 branch.
+
+-------------------------------------------------------------------
+Wed Mar 20 17:30:02 MET 2002 - tom@suse.de
+
+- (#14663) Reverting to previous version.
+
+-------------------------------------------------------------------
+Wed Mar 20 16:36:45 MET 2002 - tom@suse.de
+
+- (#14663) Fixed missing Requires for trans-package.
+
+-------------------------------------------------------------------
+Tue Mar 12 18:30:39 MET 2002 - tom@suse.de
+
+- Not running suseconfig anymore.
+
+-------------------------------------------------------------------
+Mon Feb 18 15:45:20 MET 2002 - tom@suse.de
+
+- Implemented reprobe functionality.
+
+-------------------------------------------------------------------
+Fri Feb 15 15:35:28 MET 2002 - tom@suse.de
+
+- (#13355) Renamed choose_mouse.ycp --> mouse.ycp
+
+-------------------------------------------------------------------
+Fri Feb  8 21:10:06 MET 2002 - tom@suse.de
+
+- Now working with new Modul-archtecture.
+
+-------------------------------------------------------------------
+Wed Jan 16 17:58:59 MET 2002 - tom@suse.de
+
+- Initial version
+
