@@ -48,7 +48,7 @@
 
     if (Mode::config)
     {
-	Wizard::ReplaceAbortButton(`Empty());
+	Wizard::HideAbortButton();
     }
     else
     {
