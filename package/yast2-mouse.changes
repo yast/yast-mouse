@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep 22 13:10:27 CEST 2003 - fehr@suse.de
+
+- do not call SetXMouse if no mouse device was detected (#31537)
+- 2.8.7
+
+-------------------------------------------------------------------
 Sun Sep 14 20:35:49 CEST 2003 - adrian@suse.de
 
 - make it working inside of kcontrol
