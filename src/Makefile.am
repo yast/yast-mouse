@@ -1,16 +1,13 @@
 #
 # Makefile.am for y2c_mouse/src
 #
-SUBDIRS = modules
+SUBDIRS = modules proposal
 
-clientsdir = $(YAST2DIR)/clients
-configdir = $(YAST2DIR)/config
-
-clients_DATA =			\
+client_DATA =			\
 	mouse.ycp		\
 	inst_mouse.ycp
 
 config_DATA =			\
 	mouse.y2cc
 
-EXTRA_DIST = $(clients_DATA) $(config_DATA)
+EXTRA_DIST = $(client_DATA) $(config_DATA)

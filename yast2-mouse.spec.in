@@ -28,6 +28,7 @@ Summary:	Setting the mouse
 
 @YAST2DIR@/clients/mouse.ycp
 @YAST2DIR@/clients/inst_mouse.ycp
+@YAST2DIR@/clients/proposal_mouse.ycp
 
 @YAST2DIR@/config/mouse.y2cc
 
