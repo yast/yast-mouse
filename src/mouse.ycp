@@ -45,10 +45,10 @@ if( Mode::reprobe )
 	string mouseID = Mouse::Probe();
 	if (mouseID == "none") 
 	    {
-	    SCR::Execute ( .target.bash, hwupdate + " --mouse");
 	    Mouse::mouse = "none";
 	    }
 	Mouse::Set( Mouse::mouse );
+	SCR::Execute ( .target.bash, hwupdate + " --mouse");
 	}
     else 
 	{
