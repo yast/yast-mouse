@@ -1,6 +1,5 @@
 @HEADER-COMMENT@
-
-# neededforbuild  yast2-devel-packages
+# neededforbuild yast2-devel-packages
 
 @HEADER@
 Requires:	yast2
@@ -27,13 +26,8 @@ Summary:	Setting the mouse
 %files
 %defattr(-,root,root)
 @moduledir@/*.ycp
-
 @clientdir@/*.ycp
-
 @configdir@/*.y2cc
-
 @ydatadir@/*.ycp
-
 @scrconfdir@/*.scr
-
 %doc @docdir@
