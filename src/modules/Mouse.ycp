@@ -314,7 +314,7 @@ global define void SetXMouse()
 	    {
 	    y2milestone("Not setting X mouse due to text mode");
 	    }
-	else if( SCR::Read( .target.size, fpath )<=0 )
+	else if( SCR::Read( .target.size, "/usr/X11R6/bin/xmset" )<=0 )
 	    {
 	    y2milestone("Not setting X mouse due to missing xmset binary");
 	    }
