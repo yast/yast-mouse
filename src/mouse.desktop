@@ -1,0 +1,58 @@
+[Desktop Entry]
+Type=Application
+Categories=Qt;X-SuSE-YaST-Hardware;
+
+X-KDE-ModuleType=Library
+X-KDE-RootOnly=true
+X-KDE-HasReadOnlyMode=true
+X-KDE-Library=yast2
+X-KDE-FactoryName=mouse
+
+X-SuSE-YaST-Group=Hardware
+X-SuSE-YaST-Argument=
+X-SuSE-YaST-RootOnly=true
+X-SuSE-YaST-AutoInst=
+X-SuSE-YaST-Geometry=
+X-SuSE-YaST-SortKey=
+X-SuSE-YaST-AutoinstResource=
+
+Icon=mouse
+Exec=/sbin/yast2 mouse 
+
+Name=Select Mouse Model
+GenericName=Use this module to change the mouse model.
+Name[cs]=Zvolte model myši
+GenericName[cs]=Použijte tento modul k výběru modelu myši.
+Name[de]=Mausmodell wählen
+GenericName[de]=Verwenden Sie dieses Modul zum Wechseln des Mausmodells.
+Name[es]=Seleccione el modelo de ratón
+GenericName[es]=Use este módulo para cambiar el modelo de su ratón.
+Name[hu]=Egér
+GenericName[hu]=Ez a modul az egér típusának átállítására szolgál.
+Name[it]=Selezionate il modello di mouse
+GenericName[it]=Usate questo modulo per cambiare il modello di mouse.
+Name[ko]=마우스 모델 선택
+GenericName[ko]=마우스 종류를 변경하려면 이 모듈을 사용하십시요.
+Name[nl]=Selecteer het muismodel
+GenericName[nl]=Gebruik deze module om het muismodel te wijzigen.
+Name[pt]=Selecione o modelo do mouse
+GenericName[pt]=Use este módulo para modificar o modelo do mouse.
+Name[sk]=Vyberte model myši
+GenericName[sk]=Použiť tento modul na zmenu modelu myši
+Name[sv]=Välj musmodell
+GenericName[sv]=Använd den här modulen för att ändra musmodell.
+Name[bg]=Избор на модел на мишката
+GenericName[bg]=Използвайте този модул за да промените модела на мишката.
+Name[da]=Vælg musemodel
+GenericName[da]=Brug dette modul til at ændre musemodel.
+Name[el]=Επιλέξτε μοντέλο ποντικιού
+GenericName[el]=Χρήση αυτής της μονάδας για την αλλαγή του μοντέλου του ποντικιού.
+Name[fr]=Sélectionner le modèle de souris
+GenericName[fr]=Utiliser ce module pour changer le modèle de la souris.
+Name[ja]=マウスのモデルを選択する。
+GenericName[ja]=このモジュールを使用して、マウスのモデルを変更できます。
+GenericName[lt]=Šį modulį naudokite pelės modelio pakeitimui.
+GenericName[ru]=Используйте этот модуль, чтобы выбрать модель мыши.
+Name[sl]=Izberite model miške
+GenericName[sl]=Uporabite ta modul za zamenjavo modela miške.
+GenericName[tr]=Fare modelini değiştirmek için bu modülü kullanın.
