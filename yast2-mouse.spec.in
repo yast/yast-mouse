@@ -25,6 +25,10 @@ Summary:	Setting the mouse
 
 @INSTALL@
 
+%ifarch s390 s390x
+rm -f $RPM_BUILD_ROOT@configdir@/mouse.y2cc
+%endif
+
 @CLEAN@
 
 %files
