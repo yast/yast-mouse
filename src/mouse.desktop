@@ -19,7 +19,7 @@ X-SuSE-YaST-AutoInstResource=
 Icon=mouse
 Exec=/sbin/yast2 mouse 
 
-Name=Select Mouse Model
+Name=Mouse Model
 GenericName=Use this module to change the mouse model.
 Name[cs]=Zvolte model myši
 GenericName[cs]=Použijte tento modul k výběru modelu myši.
