@@ -6,6 +6,7 @@
 {
 textdomain "mouse";
 
+// map <string, list>
 return ($[
 "00_ps2"   : [ _("PS/2 mouse"),
                $["mset":"PS/2",        "gpm":"ps2",      "device":"/dev/input/mice", "emul3":true,  "wheels":0 ]],
