@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Aug 19 15:05:08 CEST 2003 - fehr@suse.de
+
+- remove include of obsolete common_functions.ycp
+- 2.8.3
+
+-------------------------------------------------------------------
 Sat Aug 16 21:42:39 CEST 2003 - arvin@suse.de
 
 - added desktop files

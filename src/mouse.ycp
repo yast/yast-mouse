@@ -25,7 +25,6 @@ import "Mode";
 import "Wizard";
 
 import "Popup";
-include "ui/common_functions.ycp";
 import "Label";
 
 //==========================================
