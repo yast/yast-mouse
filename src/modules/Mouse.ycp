@@ -18,6 +18,8 @@ textdomain "mouse";
 import "Arch";
 import "Misc";
 import "Mode";
+import "Stage";
+import "Linuxrc";
 import "ModuleLoading";
 
 //==========================================
@@ -83,10 +85,10 @@ global define void Mouse()
     // This is done only once (and automatically) when the module is
     // loaded for the first time.
     // ---
-    y2milestone( "Mode::initial %1 Mode::config %2 Mode::reprobe %3 Mode::cont %4",
-		 Mode::initial, Mode::config, Mode::reprobe,
-		 Mode::cont );
-    if( Mode::initial || Mode::config )
+    y2milestone( "Stage::initial %1 Mode::config %2 Mode::reprobe %3 Mode::cont %4",
+		 Stage::initial(), Mode::config(), Stage::reprobe(),
+		 Stage::cont() );
+    if( Stage::initial() || Mode::config() )
 	{
 	return;
 	}
@@ -95,7 +97,7 @@ global define void Mouse()
     // from sysconfig.
     // ---
     Restore();
-    if( size(mouse)>0 && Mode::cont )
+    if( size(mouse)>0 && Stage::cont() )
         {
         Set( mouse );
 	}
@@ -228,7 +230,7 @@ global define string Probe()
     // ...
     // Don't expect a mouse with serial console.
     //
-    if( Mode::serial_console || Arch::s390 () )
+    if( Linuxrc::serial_console() || Arch::s390 () )
 	{
 	return mouse;
 	}
@@ -238,7 +240,7 @@ global define string Probe()
     // Probing in the running system (under X11) currently doesn't
     // work.
     // ---
-    if( Mode::initial )
+    if( Stage::initial() )
 	{
 	if( already_probed )
 	    {
@@ -253,7 +255,7 @@ global define string Probe()
 	    plist = do_really_probe( false );
 	    }
 	}
-    else if( Mode::reprobe )
+    else if( Stage::reprobe() )
 	{
 	// reprobe
 	y2milestone("Reprobe: real HW-probing");
@@ -302,13 +304,13 @@ global define void SetXMouse()
 	    "/usr/X11R6/bin/xmset --link /dev/mouse " +
 	    "--apply %1:%2:1200:60:0:3:%3:50:off:reopen",
 	    device, mset, do_emul3 );
-    if ( Mode::test )
+    if ( Mode::test() )
 	{
 	y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
 	}
     else
 	{
-	if( Mode::text )
+	if( Linuxrc::text() )
 	    {
 	    y2milestone("Not setting X mouse due to text mode");
 	    }
@@ -332,9 +334,9 @@ global define void Set( string mouse_id )
     y2milestone ("Mouse::Set (%1)", mouse_id);
     if( ((mouse_id == "19_usb") || (mouse_id == "23_exps2") ||
 	 (mouse_id == "21_imps2"))
-	 && ! Mode::config)
+	 && ! Mode::config())
 	{
-	if (Mode::test)
+	if (Mode::test())
 	    {
 	    y2milestone ("Testmode - not loading modules");
 	    }
@@ -343,15 +345,15 @@ global define void Set( string mouse_id )
 	    y2milestone ("Loading USB modules");
 	    /*
 	    // the modules input and mousedev are now compiled into the kernel
-	    ModuleLoading::Load( "input", "", "USB", "input", Mode::manual,
+	    ModuleLoading::Load( "input", "", "USB", "input", Linuxrc::manual(),
 	                         true);
 	    */
 	    ModuleLoading::Load( "usbhid", "", "USB", "human interface device",
-	                         Mode::manual, true );
+	                         Linuxrc::manual(), true );
 	    /*
 	    // the modules input and mousedev are now compiled into the kernel
-	    ModuleLoading::Load( "mousedev", "", "USB", "mouse", Mode::manual,
-	                         true );
+	    ModuleLoading::Load( "mousedev", "", "USB", "mouse", 
+	                         Linuxrc::manual(), true );
 	    */
 	    }
 	}
@@ -378,7 +380,7 @@ global define void Set( string mouse_id )
 
     mouse = mouse_id;
 
-    if( !Mode::config && device!="" )
+    if( !Mode::config() && device!="" )
 	{
 	SetXMouse();
 	}
@@ -448,11 +450,11 @@ global define map<string, string> Selection()
 	mouse_name = (string)eval(translate);
 	return $[mouse_code: mouse_name];
 	});
-    if (Mode::config)
-    {
+    if (Mode::config())
+	{
 	// label text
 	selection["probe"] = _("Probe");
-    }
+	}
     return selection;
     }
 
@@ -582,12 +584,12 @@ global define void Save()
     // Save state to target.
     // Symlink (/mnt)/dev/mouse to real mouse device.
     // ---
-    if( Mode::update )
+    if( Mode::update() )
 	{
 	return;
 	}
-    y2milestone( "device %1 mouse %2 reprobe:%3", device, mouse, Mode::reprobe );
-    if( (device != "") || mouse=="none" || mouse=="ignore" || (Mode::reprobe) )
+    y2milestone( "device %1 mouse %2 reprobe:%3", device, mouse, Stage::reprobe() );
+    if( (device != "") || mouse=="none" || mouse=="ignore" || Stage::reprobe() )
 	{
 	if( device != "")
 	    {
@@ -639,13 +641,13 @@ global define void Save()
 	{
 	SCR::Write( .probe.status.configured, unique_key, `yes );
 	y2milestone("Marked mouse <%1> as configured", unique_key );
-	if( !Mode::serial_console )
+	if( !Linuxrc::serial_console() )
 	    {
 	    SCR::Write( .probe.status.needed, unique_key, `yes );
 	    y2milestone("Marked mouse <%1> as needed", unique_key );
 	    }
 	}
-    if( Mode::initial || Mode::reprobe )
+    if( Stage::initial() || Stage::reprobe() )
 	{
 	foreach( map e, plist, ``{
 	    y2milestone( "unique_key %2 entry %1", e, unique_key );
@@ -661,7 +663,7 @@ global define void Save()
     // Change the respective XF86Config content to match the current settings.
     // Do this only in the running system _and_ if XFree4 is installed.
     // ---
-    if( Mode::normal || Mode::reprobe )
+    if( Mode::normal() || Stage::reprobe() )
 	{
 	y2milestone ( "Storing settings into XF86Config file (XFree4).");
 	xf86_update();

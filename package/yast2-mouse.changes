@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Oct 26 18:32:43 CEST 2004 - fehr@suse.de
+
+- updated to new Mode/Stage interface
+- 2.11.1
+
+-------------------------------------------------------------------
 Mon Oct 11 16:39:04 CEST 2004 - jsrain@suse.cz
 
 - updated to new Arch:: interface

@@ -18,7 +18,7 @@
 textdomain "mouse";
 
 import "Label";
-import "Mode";
+import "Stage";
 import "Mouse";
 import "Popup";
 import "Wizard";
@@ -31,8 +31,8 @@ string mouse_on_entry = Mouse::mouse;
 //==========================================
 // Check if this is a reconfiguration run.
 //------------------------------------------
-y2milestone( "Mode::reprobe %1 Mouse:%2", Mode::reprobe, Mouse::mouse );
-if( Mode::reprobe )
+y2milestone( "Stage::reprobe %1 Mouse:%2", Stage::reprobe(), Mouse::mouse );
+if( Stage::reprobe() )
     {
     if( Mouse::mouse != "ignore" )
 	{
@@ -50,7 +50,7 @@ if( Mode::reprobe )
 	}
     }
 
-if( !Mode::reprobe || Mouse::mouse != "ignore" )
+if( !Stage::reprobe() || Mouse::mouse != "ignore" )
     {
     //==========================================
     // create the wizard dialog
@@ -60,7 +60,7 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //==========================================
     // check if no mouse is connected
     //------------------------------------------
-    if( Mode::reprobe && (Mouse::mouse=="none") )
+    if( Stage::reprobe() && (Mouse::mouse=="none") )
 	{
 	// popup text
 	Popup::TimedMessage( _("No mouse connected to the system..."), 10);

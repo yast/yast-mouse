@@ -15,6 +15,7 @@
 
     import "Arch";
     import "Mode";
+    import "Stage";
     import "Mouse";
     import "Wizard";
     import "Popup";
@@ -34,7 +35,7 @@
     // build mouse selection box
     // with the default selection according to Mouse::mouse
 
-    if ( Mode::test )
+    if ( Mode::test() )
     {
 	mouse = "00_ps2";
     }
@@ -46,7 +47,7 @@
     term probe_mouse_check_button = `Empty();
     term test_button = `Empty();
 
-    if (Mode::config)
+    if (Mode::config())
     {
 	Wizard::HideAbortButton();
     }
@@ -95,7 +96,7 @@ Use the arrow keys to select a mouse. If the selection bar does not
 move, hit the <b><i>Tab</i></b> key (maybe repeatedly) until it does.
 </p>
 ");
-    if (!Mode::config)
+    if (!Mode::config())
     {
     // Help text 3 of 4
     help_text = help_text + _("<p>
@@ -116,7 +117,7 @@ described in the manual.
 			(boolean)WFM::Args(0), (boolean)WFM::Args(1));
 
     Wizard::SetDesktopIcon("mouse");
-    if( Mode::initial )
+    if( Stage::initial() )
 	Wizard::SetTitleIcon( "mouse" );
 
 
@@ -140,7 +141,7 @@ described in the manual.
 	UI::SetFocus(`id(`mouse));
 	ret = Wizard::UserInput();
 
-	if ( !Mode::config && ret == `abort
+	if ( !Mode::config() && ret == `abort
 	     && Popup::ConfirmAbort (`painless) )
 	{
 	    break;
@@ -153,7 +154,7 @@ described in the manual.
 	    if ( new_mouse != nil )
 	    {
 		Mouse::Set( new_mouse );
-		if (Mode::config)
+		if (Mode::config())
 		{
 		    import "AutoinstGeneral";
 		    AutoinstGeneral::mouse["id"] = Mouse::mouse;
