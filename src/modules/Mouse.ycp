@@ -300,9 +300,7 @@ global define void SetXMouse()
     //			     1      2    3    4 5 6  7  8   9
     // Example:   mset --apply /dev/psaux:PS/2:1200:60:0:3:on:50:reopen
     // ---
-	string mset_command = sformat ( "/usr/X11R6/bin/xmset
-		--apply %1:%2:1200:60:0:3:%3:50:off:reopen", device, mset, do_emul3
-	);
+	string mset_command = sformat ( "/usr/X11R6/bin/xmset --apply %1:%2:1200:60:0:3:%3:50:off:reopen", device, mset, do_emul3 );
     if ( Mode::test() )
 	{
 	y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
