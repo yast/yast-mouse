@@ -201,7 +201,7 @@
 	map mice = SCR::Read (.target.yast2, ["mouse_raw.ycp", $[]]);
 
 	locale translate = mice[mouse_id, 0]:mouse_id;
-	name = translate;
+	name = eval(translate);
 	
 	y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
 
@@ -335,7 +335,7 @@
 	return mapmap (string mouse_code, list mouse_value, mice,
 	``{
 	    translate = mouse_value[0]:"";
-	    mouse_name = translate;
+	    mouse_name = eval(translate);
 	    return [mouse_code, mouse_name];
 	});
     }
