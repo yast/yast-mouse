@@ -344,7 +344,7 @@ global define void Set( string mouse_id )
 	    ModuleLoading::Load( "input", "", "USB", "input", Mode::manual,
 	                         true);
 	    */
-	    ModuleLoading::Load( "hid", "", "USB", "human interface device",
+	    ModuleLoading::Load( "usbhid", "", "USB", "human interface device",
 	                         Mode::manual, true );
 	    /*
 	    // the modules input and mousedev are now compiled into the kernel
