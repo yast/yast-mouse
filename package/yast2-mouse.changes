@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Aug 30 12:24:35 CEST 2002 - ms@suse.de
+
+- add ExplorerPS/2 entries to mouse_raw.ycp (#18625)
+
+-------------------------------------------------------------------
 Tue Aug 27 20:00:00 CEST 2002 - jsuchome@suse.cz
 
 - provide/obsolete old translation packages
