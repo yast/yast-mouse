@@ -1,79 +1,96 @@
-/*
- *
- * Module:             mouse.ycp
- *
- * Author:             Thomas Roelz (tom@suse.de)
- *
- * Submodules:
- *
- *
- * Purpose:	configure mouse in running system
- *
- * Modify:
- *
- *
- * $Id$
- */
-
+/**************
+FILE          : mouse.ycp
+***************
+PROJECT       : YaST2
+              :
+AUTHOR        : Marcus Schäfer <ms@suse.de>
+              :
+BELONGS TO    : YaST2
+              : (GPM mouse configuration module)
+              :
+DESCRIPTION   : mouse.ycp is the first instance called in
+              : front of the inst_mouse.ycp configuration module
+              : we will handle the reprobe case here and the
+              : return value from the configuration module which
+              : is needed to restore the mouse in special cases
+              :
+              :
+STATUS        : Development
+**************/
 {
-    textdomain "mouse";
+textdomain "mouse";
 
-    import "Mode";
+import "Mouse";
+import "Mode";
+import "Wizard";
 
-    import "Wizard";
-    include "ui/common_popups.ycp";
-    include "ui/common_functions.ycp";
-    include "ui/common_messages.ycp";
+include "ui/common_popups.ycp";
+include "ui/common_functions.ycp";
+include "ui/common_messages.ycp";
 
-    // Memorize the current mouse.
-    //
-    string mouse_on_entry = Mouse::mouse;
+//==========================================
+// Memorize the current mouse.
+//------------------------------------------
+string mouse_on_entry = Mouse::mouse;
 
-    // Check if this is a reconfiguration run.
-    //
-    if ( Mode::reprobe )
-    {
-	// Reprobe mouse module to achieve same behaviour as during installation.
-	//
-	Mouse::Probe();		// Do the best we can...
+//==========================================
+// Check if this is a reconfiguration run.
+//------------------------------------------
+if ( Mode::reprobe ) {
+	string hwupdate = "/usr/X11R6/lib/sax/tools/hwupdate";
+	string mouseID = Mouse::Probe();
+	if (mouseID == "none") {
+		SCR::Execute ( .target.bash, hwupdate + " --mouse");
+		Mouse::mouse = "non";
+	}
 	Mouse::Set( Mouse::mouse );
+}
 
-	y2milestone("Reprobed mouse");
-    }
+//==========================================
+// create the wizard dialog
+//------------------------------------------
+Wizard::CreateDialog();
 
-    // create the wizard dialog
-    //
-    Wizard::CreateDialog();
+//==========================================
+// call inst_mouse and init list according
+// to the sysconfig variables
+//------------------------------------------
+any result = nil;
+result =  WFM::CallFunction ( `inst_mouse( true, true ) );
 
-    any result = nil;
-
-    // On import the mouse module has read the sysconfig values and is initialized.
-    // Let the user choose a new mouse.
-    //
-    result = WFM::CallFunction ( `inst_mouse( true, true ) );
-
-    if ( result == `next )
-    {
+//==========================================
+// handle result value from the config
+//------------------------------------------
+if ( result == `next ) {
+	// ...
 	// User accepted the the setting.
-	// Only if the user has chosen a different mouse change the system configuration.
-	//
-	if ( mouse_on_entry != Mouse::mouse )
-	{
-	    y2milestone("User selected new mouse: <%1>", Mouse::mouse );
-
-	    // Save changes...
-	    //
-	    Mouse::Save();
+	// Only if the user has chosen a different mouse change the
+	// system configuration.
+	// ---
+	if ( mouse_on_entry != Mouse::mouse ) {
+		y2milestone("User selected new mouse: <%1>", Mouse::mouse );
+		Mouse::Save();
+		// ...
+		// According to ro@suse.de it doesn't make sense to run individual
+		// SuSEcongig modules because the set of modules and the variables
+		// they contain may change any time.
+		// ==> full SuSEconfig run
+		//
+		// This is currently commented out because it's not necessary anymore.
+		// Leave it in since this may change again very soon.
+		//
+		// textdomain "general";
+		// WFM::CallFunction( `inst_suseconfig( false, false ) );
+		// ---
+	} else {
+		y2milestone( "Mouse not changed --> doing nothing" );
 	}
-	else
-	{
-	    y2milestone( "Mouse not changed --> doing nothing" );
-	}
-    }
-    else	// `cancel or `back
-    {
+} else {
+	// ...
+	// `cancel or `back selected
+	// ---
 	y2milestone( "User cancelled --> no change" );
-    }
+}
 
-    return UI::CloseDialog();
+return UI::CloseDialog();
 }
