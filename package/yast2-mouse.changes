@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul 30 15:58:53 CEST 2002 - ms@suse.de
+
+- add MOUSETYPE to /etc/sysconfig/mouse (#17266)
+
+-------------------------------------------------------------------
 Fri Jul 26 16:14:30 CEST 2002 - ms@suse.de
 
 - fixed handling if mouse is disconnected (#16239)
