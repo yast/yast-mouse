@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jul 15 16:19:44 CEST 2002 - fehr@suse.de
+
+- fix namespace lookup
+
+-------------------------------------------------------------------
 Tue Jul  9 13:53:13 CEST 2002 - mvidner@suse.cz
 
 - Provide/Obsolete yast2-db-mouse
