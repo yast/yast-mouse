@@ -49,454 +49,477 @@ boolean already_probed = false;	    // memorize if already probed
 //==========================================
 // Functions...
 //------------------------------------------
-global define void Mouse() ``{
-	// ...
-	// The module constructor.
-	// Sets the proprietary module data defined globally for public access.
-	// This is done only once (and automatically) when the module is
-	// loaded for the first time.
-	// ---
-	y2milestone( "Mode::initial %1 Mode::config %2 Mode::reprobe %3 Mode::cont %4",
-	             Mode::initial, Mode::config, Mode::reprobe, 
-		     Mode::cont );
-	if ( Mode::initial || Mode::config ) {
-		return;
+global define void Mouse() 
+    ``{
+    // ...
+    // The module constructor.
+    // Sets the proprietary module data defined globally for public access.
+    // This is done only once (and automatically) when the module is
+    // loaded for the first time.
+    // ---
+    y2milestone( "Mode::initial %1 Mode::config %2 Mode::reprobe %3 Mode::cont %4",
+		 Mode::initial, Mode::config, Mode::reprobe, 
+		 Mode::cont );
+    if( Mode::initial || Mode::config ) 
+	{
+	return;
 	}
-	// ...
-	// Running system: Restore formerly stored state
-	// from sysconfig.
-	// ---
-	Restore();
-}
+    // ...
+    // Running system: Restore formerly stored state
+    // from sysconfig.
+    // ---
+    Restore();
+    }
 
 //==========================================
 // MakeProposal...
 //------------------------------------------
-global define string MakeProposal (
-	boolean force_reset, boolean language_changed
-) ``{
-	// ...
-	// Return proposal string and set system mouse.
-	// ---
-	y2milestone("force_reset: %1", force_reset);
-	y2milestone("language_changed: %1", language_changed);
+global define string MakeProposal( boolean force_reset, 
+                                   boolean language_changed) 
+   ``{
+    // ...
+    // Return proposal string and set system mouse.
+    // ---
+    y2milestone("force_reset: %1", force_reset);
+    y2milestone("language_changed: %1", language_changed);
 
-	if (name_lang != Language::language) {
-		language_changed = true;
-		name_lang = Language::language;
+    if( name_lang != Language::language ) 
+	{
+	language_changed = true;
+	name_lang = Language::language;
 	}
-	if ( force_reset ) {
-		string mouse_id = Probe();
-		Set( mouse_id );
-	} else {
-		if ( language_changed ) {
-			Set( mouse );
-		}
+    if( force_reset ) 
+	{
+	string mouse_id = Probe();
+	Set( mouse_id );
+	} 
+    else 
+	{
+	if( language_changed ) 
+	    {
+	    Set( mouse );
+	    }
 	}
-	return name;
-}
+    return name;
+    }
 
 //==========================================
 // Set...
 //------------------------------------------
-global define void Set( string mouse_id ) ``{
-	// ...
-	// Set system to selected mouse.
-	// Load modules, set global variables, call xmset.
-	// ---
-	y2milestone ("Mouse::Set (%1)", mouse_id);
-	if (((mouse_id == "19_usb")
-		 || (mouse_id == "23_exps2")
-	     || (mouse_id == "21_imps2"))
-	     && ! Mode::config)
+global define void Set( string mouse_id ) 
+    ``{
+    // ...
+    // Set system to selected mouse.
+    // Load modules, set global variables, call xmset.
+    // ---
+    y2milestone ("Mouse::Set (%1)", mouse_id);
+    if( ((mouse_id == "19_usb") || (mouse_id == "23_exps2") ||
+	 (mouse_id == "21_imps2"))
+	 && ! Mode::config)
 	{
-	if (Mode::test) {
-		y2milestone ("Testmode - not loading modules");
-	} else {
-		y2milestone ("Loading USB modules");
-		ModuleLoading::Load (
-			"input", "", "USB", "input", Mode::manual, true
-		);
-		ModuleLoading::Load (
-			"hid", "", "USB", "human interface device", Mode::manual, true
-		);
-		ModuleLoading::Load (
-			"mousedev", "", "USB", "mouse", Mode::manual, true
-		);
+	if (Mode::test) 
+	    {
+	    y2milestone ("Testmode - not loading modules");
+	    } 
+	else 
+	    {
+	    y2milestone ("Loading USB modules");
+	    ModuleLoading::Load( "input", "", "USB", "input", Mode::manual, 
+	                         true);
+	    ModuleLoading::Load( "hid", "", "USB", "human interface device", 
+	                         Mode::manual, true );
+	    ModuleLoading::Load( "mousedev", "", "USB", "mouse", Mode::manual,
+	                         true );
+	    }
 	}
-	}
-	// ...
-	// Get mouse data base for possible retranslation.
-	// ---
-	map mice = SCR::Read (
-		.target.yast2, ["mouse_raw.ycp", $[]]
-	);
-	locale translate = mice[mouse_id, 0]:mouse_id;
-	name = eval (translate);
-	y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
-	// ...
-	// Overwrite perhaps probed data only if the
-	// mouse could be found in the DB.
-	//
-	if ( name != "" ) {
-		map mouse_data = mice[mouse_id, 1]:$[];
-		device	= mouse_data["device"]:"";
-		gpm		= mouse_data["gpm"]:"";
-		mset	= mouse_data["mset"]:"";
-		emul3	= mouse_data["emul3"]:false;
-		wheels	= mouse_data["wheels"]:0;
+    // ...
+    // Get mouse data base for possible retranslation.
+    // ---
+    map mice = SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] );
+    locale translate = mice[mouse_id, 0]:mouse_id;
+    name = eval (translate);
+    y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
+    // ...
+    // Overwrite perhaps probed data only if the
+    // mouse could be found in the DB.
+    //
+    if( name != "" ) 
+	{
+	map mouse_data = mice[mouse_id, 1]:$[];
+	device	= mouse_data["device"]:"";
+	gpm	= mouse_data["gpm"]:"";
+	mset	= mouse_data["mset"]:"";
+	emul3	= mouse_data["emul3"]:false;
+	wheels	= mouse_data["wheels"]:0;
 	}
 
-	mouse = mouse_id;
+    mouse = mouse_id;
 
-	if ( ! Mode::config ) {
-		SetXMouse();
+    if( !Mode::config ) 
+	{
+	SetXMouse();
 	}
-	return;
-}
+    return;
+    }
 
 //==========================================
 // SetXMouse...
 //------------------------------------------
-global define void SetXMouse() ``{
-	// ...
-	// SetXMouse() -  formerly set_x_mouse.ycp
-	// ---
-	string do_emul3 = (emul3)?"on":"off";
-	y2milestone("SetXMouse: Mouse params: %1:%2:%3", device, mset, do_emul3);
-	// ...
-	// mset	--link  <mouse-device-link>	// default: /dev/pointer0
-	//	--apply	<realdevice>:			// #1
-	//		<protocol>:			        // #2
-	//		<baudrate>:			        // #3
-	//		<samplerate>:			    // #4
-	//		<resolution>:			    // #5
-	//		<buttons>:			        // #6
-	//		<emul3 {on|off} >:		    // #7
-	//		<emul3timeout{num}>:		// #8
-	//		<chordmiddle{on|off}>:		// #9
-	//		<{reopen}>			        // #10
-	//
-	//			     1      2    3    4 5 6  7  8   9
-	// Example:   mset --apply /dev/psaux:PS/2:1200:60:0:3:on:50:reopen
-	// ---
-	string mset_command = sformat (
-		"/usr/X11R6/bin/xmset --link /dev/mouse " +
-		"--apply %1:%2:1200:60:0:3:%3:50:off:reopen",
-		device, mset, do_emul3
-	);
-	if ( Mode::test ) {
-	    y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
-	} else {
-	    if ( Mode::text ) {
-		y2milestone("Not setting X mouse due to text mode");
-	    } else {
-		y2milestone ("Setting X mouse: %1", mset_command );
-		SCR::Execute (.target.symlink, device, "/dev/mouse"); // WORKAROUND
-		SCR::Execute(
-			     .target.bash, mset_command, $["DISPLAY" : ":0.0"]
-			     );
+global define void SetXMouse() 
+    ``{
+    // ...
+    // SetXMouse() -  formerly set_x_mouse.ycp
+    // ---
+    string do_emul3 = (emul3)?"on":"off";
+    y2milestone("SetXMouse: Mouse params: %1:%2:%3", device, mset, do_emul3);
+    // ...
+    // mset	--link  <mouse-device-link>	// default: /dev/pointer0
+    //	--apply	<realdevice>:			// #1
+    //		<protocol>:			        // #2
+    //		<baudrate>:			        // #3
+    //		<samplerate>:			    // #4
+    //		<resolution>:			    // #5
+    //		<buttons>:			        // #6
+    //		<emul3 {on|off} >:		    // #7
+    //		<emul3timeout{num}>:		// #8
+    //		<chordmiddle{on|off}>:		// #9
+    //		<{reopen}>			        // #10
+    //
+    //			     1      2    3    4 5 6  7  8   9
+    // Example:   mset --apply /dev/psaux:PS/2:1200:60:0:3:on:50:reopen
+    // ---
+    string mset_command = sformat (
+	    "/usr/X11R6/bin/xmset --link /dev/mouse " +
+	    "--apply %1:%2:1200:60:0:3:%3:50:off:reopen",
+	    device, mset, do_emul3 );
+    if ( Mode::test ) 
+	{
+	y2milestone ("Test mode - NOT setting X mouse:\n %1", mset_command );
+	} 
+    else 
+	{
+	if( Mode::text ) 
+	    {
+	    y2milestone("Not setting X mouse due to text mode");
+	    } 
+	else 
+	    {
+	    y2milestone( "Setting X mouse: %1", mset_command );
+	    SCR::Execute( .target.symlink, device, "/dev/mouse"); // WORKAROUND
+	    SCR::Execute( .target.bash, mset_command, $["DISPLAY" : ":0.0"] );
 	    }
 	}
-}
+    }
 
 //==========================================
 // Found...
 //------------------------------------------
-global define boolean Found () ``{
-	// ...
-	// Report if a mouse was alread found.
-	// ---
-	return ( mouse != "none" );
-}
+global define boolean Found () 
+    ``{
+    // ...
+    // Report if a mouse was alread found.
+    // ---
+    return ( mouse != "none" );
+    }
 
 //==========================================
 // Selection...
 //------------------------------------------
-global define map Selection() ``{
-	// ...
-	// Return a map of ids and names to build up a selection list
-	// for the user. The key is used later in the Set function
-	// to select this mouse. The name is a translated string.
-	// ---
-	// try translated mouse.ycp first, if this doesnt exist
-	// use the raw (untranslated) version
-	// ---
-	locale translate = "";
-	string mouse_name = "";
-	map mice = SCR::Read (
-		.target.yast2, ["mouse_raw.ycp", $[]]
-	);
-	return mapmap (string mouse_code, list mouse_value, mice, ``{
-		translate = mouse_value[0]:"";
-		mouse_name = eval(translate);
-		return [mouse_code, mouse_name];
+global define map Selection() 
+    ``{
+    // ...
+    // Return a map of ids and names to build up a selection list
+    // for the user. The key is used later in the Set function
+    // to select this mouse. The name is a translated string.
+    // ---
+    // try translated mouse.ycp first, if this doesnt exist
+    // use the raw (untranslated) version
+    // ---
+    locale translate = "";
+    string mouse_name = "";
+    map mice = SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] );
+    return mapmap( string mouse_code, list mouse_value, mice, 
+	``{
+	translate = mouse_value[0]:"";
+	mouse_name = eval(translate);
+	return [mouse_code, mouse_name];
 	});
-}
+    }
 
 //==========================================
 // Probe...
 //------------------------------------------
-global define string Probe() ``{
-	// ...
-	// Probe for mouse, return mouse_id for use with Set.
-	// This is a "real" probe only under certain circunstances...
-	// ---
-	mouse = "none";
-	// ...
-	// Don't expect a mouse with serial console.
-	//
-	if ( Mode::serial_console || Arch::s390 ) {
-		return mouse;
-	}
-	// ...
-	// During installation actually do probe only if called the
-	// first time. Afterwards only read the libhd data base.
-	// Probing in the running system (under X11) currently doesn't
-	// work.
-	// ---
-	if ( Mode::initial ) {
-	if ( already_probed ) {
-		// already probed
-		y2milestone("Initial: manual probing");
-		do_really_probe( true );
-	} else {
-		// not yet probed
-		y2milestone("Initial: real HW-probing");
-		do_really_probe( false );
-	}
-	} else if ( Mode::reprobe ) {
-		// reprobe
-		y2milestone("Reprobe: real HW-probing");
-		do_really_probe ( false );
-	} else {
-		// ...
-		// When called from within the running system we can safely read
-		// the libhd database to avoid erroneous HW-probing under Y11.
-		// ---
-		y2milestone("Running system: manual probing");
-		do_really_probe( true );
-	}
+global define string Probe() 
+    ``{
+    // ...
+    // Probe for mouse, return mouse_id for use with Set.
+    // This is a "real" probe only under certain circunstances...
+    // ---
+    mouse = "none";
+    // ...
+    // Don't expect a mouse with serial console.
+    //
+    if( Mode::serial_console || Arch::s390 ) 
+	{
 	return mouse;
-}
+	}
+    // ...
+    // During installation actually do probe only if called the
+    // first time. Afterwards only read the libhd data base.
+    // Probing in the running system (under X11) currently doesn't
+    // work.
+    // ---
+    if( Mode::initial ) 
+	{
+	if( already_probed ) 
+	    {
+	    // already probed
+	    y2milestone("Initial: manual probing");
+	    do_really_probe( true );
+	    } 
+	else 
+	    {
+	    // not yet probed
+	    y2milestone("Initial: real HW-probing");
+	    do_really_probe( false );
+	    }
+	} 
+    else if( Mode::reprobe ) 
+	{
+	// reprobe
+	y2milestone("Reprobe: real HW-probing");
+	do_really_probe ( false );
+	} 
+    else 
+	{
+	// ...
+	// When called from within the running system we can safely read
+	// the libhd database to avoid erroneous HW-probing under Y11.
+	// ---
+	y2milestone("Running system: manual probing");
+	do_really_probe( true );
+	}
+    return mouse;
+    }
 
 //==========================================
 // Save...
 //------------------------------------------
-global define void Save() ``{
-	// ...
-	// Save state to target.
-	// Symlink (/mnt)/dev/mouse to real mouse device.
-	// ---
-	if ( Mode::update ) {
-		return;
-	}
-	if ( (device != "") || (Mode::reprobe) ) {
-		SCR::Execute(.target.symlink, device, "/dev/mouse");
-		// if we have a mouse device, set gpm_param
-		if ( gpm != "" ) {
-		SCR::Write(.sysconfig.mouse.GPM_PROTOCOL, gpm);
-		// Comment written by third party
-		}
-
-		SCR::Write(.sysconfig.mouse.FULLNAME, name);
-		SCR::Write(.sysconfig.mouse.FULLNAME.comment,
-			"\n# The full name of the attached mouse.\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.YAST_MOUSE, mouse);
-		SCR::Write(.sysconfig.mouse.YAST_MOUSE.comment,
-			"\n# The YaST-internal identifier of the attached mouse.\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.MOUSEDEVICE, device);
-		// Comment written by third party
-		SCR::Write(.sysconfig.mouse.XMOUSEDEVICE,device);
-		SCR::Write(.sysconfig.mouse.XMOUSEDEVICE.comment,
-			"\n# Mouse device used for the X11 system.\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.BUTTONS, sformat( "%1", buttons ) );
-		SCR::Write(.sysconfig.mouse.BUTTONS.comment,
-			"\n# The number of buttons of the attached mouse.\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.WHEELS, sformat( "%1", wheels ) );
-		SCR::Write(.sysconfig.mouse.WHEELS.comment,
-			"\n# The number of wheels of the attached mouse.\n#\n"
-		);
-		if (mset != "") {
-		SCR::Write(.sysconfig.mouse.XEMU3, (emul3?"yes":"no"));
-		SCR::Write(.sysconfig.mouse.XEMU3.comment,
-			"\n# Shall the emulate-3-buttons-mode be turned on under X11?\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.XMOUSETYPE, mset);
-		SCR::Write(.sysconfig.mouse.XMOUSETYPE.comment,
-			"\n# The mouse type under X11, e.g. \"ps/2\"\n#\n"
-		);
-		SCR::Write(.sysconfig.mouse.MOUSETYPE, gpm);
-		SCR::Write(.sysconfig.mouse.MOUSETYPE.comment,
-			"\n# The GPM mouse type, e.g. \"ps2\"\n#\n"
-		);
-		}
-		SCR::Write(.sysconfig.mouse, nil); // flush
-		y2milestone("Saved sysconfig data for mouse: <%1>", name );
-	}
-	// ...
-	// Only if the mouse has been probed in this run the unique_key
-	// is not empty. Only in this case mark the device as "configured".
-	// In any other case the device should already be configured and
-	// the marking can't be done because the unique_key is missing.
-	// ==> Only mark after probing!
-	//
-	y2milestone( "configured mouse key %1", unique_key );
-	if ( unique_key != "" ) 
-	    {
-		SCR::Write( .probe.status.configured, unique_key, `yes );
-		y2milestone("Marked mouse <%1> as configured", unique_key );
-	    if( !Mode::serial_console ) 
-		{
-			SCR::Write( .probe.status.needed, unique_key, `yes );
-			y2milestone("Marked mouse <%1> as needed", unique_key );
-		}
-	    }
-		list plist = do_really_probe( true );
-		y2milestone( "mouse probe list %1", plist );
-		foreach( `e, plist, ``{
-		    y2milestone( "entry %1", e );
-		    if( e["unique_key"]:"" != unique_key )
-			{
-			y2milestone( "set needed to no for key %1", 
-			             e["unique_key"]:"" );
-		SCR::Write( .probe.status.needed, e["unique_key"]:"", `no );
-			}
-		    });
-
-	// ...
-	// Change the respective XF86Config content to match the current settings.
-	// Do this only in the running system _and_ if XFree4 is installed.
-	// ---
-	if ( X11Version::version == "4" && ( Mode::normal || Mode::reprobe ) ) {
-		y2milestone ( "Storing settings into XF86Config file (XFree4).");
-		XF86Mouse::update();
-	}
-	y2milestone("Saved data for mouse: <%1>", name );
+global define void Save() 
+    ``{
+    // ...
+    // Save state to target.
+    // Symlink (/mnt)/dev/mouse to real mouse device.
+    // ---
+    if( Mode::update ) 
+	{
 	return;
-}
+	}
+    if( (device != "") || (Mode::reprobe) ) 
+	{
+	SCR::Execute(.target.symlink, device, "/dev/mouse");
+	// if we have a mouse device, set gpm_param
+
+	SCR::Write( .sysconfig.mouse.FULLNAME, name);
+	SCR::Write( .sysconfig.mouse.FULLNAME.comment,
+		    "\n# The full name of the attached mouse.\n#\n" );
+	SCR::Write( .sysconfig.mouse.YAST_MOUSE, mouse);
+	SCR::Write( .sysconfig.mouse.YAST_MOUSE.comment,
+		    "\n# The YaST-internal identifier of the attached mouse.\n#\n");
+	SCR::Write( .sysconfig.mouse.MOUSEDEVICE, device);
+	// Comment written by third party
+	SCR::Write( .sysconfig.mouse.XMOUSEDEVICE,device);
+	SCR::Write( .sysconfig.mouse.XMOUSEDEVICE.comment,
+		    "\n# Mouse device used for the X11 system.\n#\n" );
+	SCR::Write( .sysconfig.mouse.BUTTONS, sformat( "%1", buttons ) );
+	SCR::Write( .sysconfig.mouse.BUTTONS.comment,
+		    "\n# The number of buttons of the attached mouse.\n#\n" );
+	SCR::Write( .sysconfig.mouse.WHEELS, sformat( "%1", wheels ) );
+	SCR::Write( .sysconfig.mouse.WHEELS.comment,
+		    "\n# The number of wheels of the attached mouse.\n#\n" );
+	if (mset != "") 
+	    {
+	    SCR::Write( .sysconfig.mouse.XEMU3, (emul3?"yes":"no"));
+	    SCR::Write( .sysconfig.mouse.XEMU3.comment,
+			"\n# Shall the emulate-3-buttons-mode be turned on under X11?\n#\n" );
+	    SCR::Write( .sysconfig.mouse.XMOUSETYPE, mset);
+	    SCR::Write( .sysconfig.mouse.XMOUSETYPE.comment,
+			"\n# The mouse type under X11, e.g. \"ps/2\"\n#\n" );
+	    SCR::Write( .sysconfig.mouse.MOUSETYPE, gpm);
+	    SCR::Write( .sysconfig.mouse.MOUSETYPE.comment,
+			"\n# The GPM mouse type, e.g. \"ps2\"\n#\n" );
+	    }
+	SCR::Write(.sysconfig.mouse, nil); // flush
+	y2milestone("Saved sysconfig data for mouse: <%1>", name );
+	}
+    // ...
+    // Only if the mouse has been probed in this run the unique_key
+    // is not empty. Only in this case mark the device as "configured".
+    // In any other case the device should already be configured and
+    // the marking can't be done because the unique_key is missing.
+    // ==> Only mark after probing!
+    //
+    y2milestone( "configured mouse key %1", unique_key );
+    if( unique_key != "" ) 
+	{
+	SCR::Write( .probe.status.configured, unique_key, `yes );
+	y2milestone("Marked mouse <%1> as configured", unique_key );
+	if( !Mode::serial_console ) 
+	    {
+	    SCR::Write( .probe.status.needed, unique_key, `yes );
+	    y2milestone("Marked mouse <%1> as needed", unique_key );
+	    }
+	}
+    list plist = do_really_probe( true );
+    y2milestone( "mouse probe list %1", plist );
+    foreach( `e, plist, ``{
+	y2milestone( "entry %1", e );
+	if( e["unique_key"]:"" != unique_key )
+	    {
+	    y2milestone( "set needed to no for key %1", e["unique_key"]:"" );
+	    SCR::Write( .probe.status.needed, e["unique_key"]:"", `no );
+	    }
+	});
+
+    // ...
+    // Change the respective XF86Config content to match the current settings.
+    // Do this only in the running system _and_ if XFree4 is installed.
+    // ---
+    if( X11Version::version == "4" && ( Mode::normal || Mode::reprobe ) ) 
+	{
+	y2milestone ( "Storing settings into XF86Config file (XFree4).");
+	XF86Mouse::update();
+	}
+    y2milestone("Saved data for mouse: <%1>", name );
+    return;
+    }
 
 //==========================================
 // Restore...
 //------------------------------------------
-global define boolean Restore() ``{
-	// ...
-	// Restore the the data from sysconfig.
-	// ---
-	mouse	= Misc::SysconfigRead(.sysconfig.mouse.YAST_MOUSE, mouse );
-	device	= Misc::SysconfigRead(.sysconfig.mouse.MOUSEDEVICE, device );
-	gpm	= Misc::SysconfigRead(.sysconfig.mouse.GPM_PROTOCOL, gpm );
-	name	= Misc::SysconfigRead(.sysconfig.mouse.FULLNAME, name );
-	emul3	= (Misc::SysconfigRead(.sysconfig.mouse.XEMU3,
-		(emul3 ? "yes" : "no") ) == "yes"
-	);
-	mset	= Misc::SysconfigRead(.sysconfig.mouse.XMOUSETYPE, mset );
-	buttons	= tointeger( Misc::SysconfigRead(.sysconfig.mouse.BUTTONS,
-		sformat("%1", buttons) )
-	);
-	wheels	= tointeger( Misc::SysconfigRead(.sysconfig.mouse.WHEELS,
-		sformat("%1", wheels) )
-	);
-	y2milestone("Restored data (sysconfig) for mouse: <%1>", mouse );
-	return;
-}
+global define boolean Restore() 
+    ``{
+    // ...
+    // Restore the the data from sysconfig.
+    // ---
+    mouse  = Misc::SysconfigRead(.sysconfig.mouse.YAST_MOUSE, mouse );
+    device = Misc::SysconfigRead(.sysconfig.mouse.MOUSEDEVICE, device );
+    gpm    = Misc::SysconfigRead(.sysconfig.mouse.MOUSETYPE, "" );
+    if( gpm=="" )
+	{
+	// Try to read old variable for compatibility on update of old system
+	gpm = Misc::SysconfigRead(.sysconfig.mouse.GPM_PROTOCOL, "" );
+	}
+    name   = Misc::SysconfigRead(.sysconfig.mouse.FULLNAME, name );
+    emul3  = (Misc::SysconfigRead(.sysconfig.mouse.XEMU3,
+				  (emul3 ? "yes" : "no") ) == "yes" );
+    mset   = Misc::SysconfigRead(.sysconfig.mouse.XMOUSETYPE, mset );
+    buttons = tointeger( Misc::SysconfigRead(.sysconfig.mouse.BUTTONS,
+			 sformat("%1", buttons) ) );
+    wheels = tointeger( Misc::SysconfigRead(.sysconfig.mouse.WHEELS,
+			sformat("%1", wheels) ) );
+    y2milestone("Restored data (sysconfig) for mouse: <%1>", mouse );
+    return;
+    }
 
 //==========================================
 // do_really_probe...
 //------------------------------------------
-define list do_really_probe( boolean manual ) ``{
-	// ...
-	// Do a hardware probing of the attached mouse. Depending on the
-	// parameter "manual" this is done by really probing the mouse
-	// hardware or by just reading the libhd database. Real WH-probing
-	// should not be called from within an x server because
-	// in this case the probing will yield erroneous values. Use manual
-	// in this case if possible.
-	// ---
-	y2milestone("Really probing");
-	list mouseprobelist = [];
-	if ( manual ) {
-		// libhd data lookup
-		mouseprobelist = SCR::Read(.probe.mouse.manual);
-		y2milestone ("Probed manual (no HW interception): <%1>",
-			mouseprobelist
-		);
-		if ( mouseprobelist == nil ) mouseprobelist = [];
-		if ( mouseprobelist == [] ) {
-			// ...
-			// Data lookup not successful ==> Trying a real
-			// hardware probing as fallback
-			// ---
-			y2warning("Manual probing failed ==> Now trying a real HW Probing");
-			do_really_probe( false );
-			return;
-		}
-	} else {
-		// real hardware interception
-		mouseprobelist = SCR::Read(.probe.mouse);
-		y2milestone("Really probed with HW interception: <%1>",
-			mouseprobelist
-		);
-		if ( mouseprobelist == nil ) mouseprobelist = [];
-		if ( mouseprobelist != [] ) {
-			// ...
-			// Probing was successful ==>  Now probing has taken place
-			// ---
-			already_probed = true;
-		}
+define list do_really_probe( boolean manual ) 
+    ``{
+    // ...
+    // Do a hardware probing of the attached mouse. Depending on the
+    // parameter "manual" this is done by really probing the mouse
+    // hardware or by just reading the libhd database. Real WH-probing
+    // should not be called from within an x server because
+    // in this case the probing will yield erroneous values. Use manual
+    // in this case if possible.
+    // ---
+    y2milestone("Really probing");
+    list mouseprobelist = [];
+    if( manual ) 
+	{
+	// libhd data lookup
+	mouseprobelist = SCR::Read(.probe.mouse.manual);
+	y2milestone( "Probed manual (no HW interception): <%1>",
+		     mouseprobelist );
+	if( mouseprobelist == nil ) mouseprobelist = [];
+	if( mouseprobelist == [] ) 
+	    {
+	    // ...
+	    // Data lookup not successful ==> Trying a real
+	    // hardware probing as fallback
+	    // ---
+	    y2warning("Manual probing failed ==> Now trying a real HW Probing");
+	    do_really_probe( false );
+	    return;
+	    }
+	} 
+    else 
+	{
+	// real hardware interception
+	mouseprobelist = SCR::Read(.probe.mouse);
+	y2milestone("Really probed with HW interception: <%1>", mouseprobelist);
+	if( mouseprobelist == nil ) mouseprobelist = [];
+	if( mouseprobelist != [] ) 
+	    {
+	    // ...
+	    // Probing was successful ==>  Now probing has taken place
+	    // ---
+	    already_probed = true;
+	    }
 	}
+    // ...
+    // found a mouse ?
+    //
+    if( size( mouseprobelist ) > 0 ) 
+	{
 	// ...
-	// found a mouse ?
+	// get value from bus, select first mouse
 	//
-	if ( size( mouseprobelist ) > 0 ) {
-		// ...
-		// get value from bus, select first mouse
-		//
-		map firstmouse = $[];
-		integer idx=0;
-		while( size(firstmouse)==0 && idx<size(mouseprobelist) )
-		    {
-		    map conf = SCR::Read(.probe.status, 
-		                         mouseprobelist[idx,"unique_key"]:"");
-		    y2milestone( "key %1 conf %2", 
-		                 mouseprobelist[idx,"unique_key"]:"", conf );
-		    if( conf["available"]:`no == `yes )
-			{
-			firstmouse = mouseprobelist[idx]:$[];
-			}
-		    idx = idx + 1;
-		    }
-		device  = firstmouse["dev_name"]:"";
-		unique_key = firstmouse["unique_key"]:"";
-		map mprotocol = firstmouse["mouse",0]:$[];	// "gpm" and "xf86"
+	map firstmouse = $[];
+	integer idx=0;
+	while( size(firstmouse)==0 && idx<size(mouseprobelist) )
+	    {
+	    map conf = SCR::Read(.probe.status, 
+				 mouseprobelist[idx,"unique_key"]:"");
+	    y2milestone( "key %1 conf %2", 
+			 mouseprobelist[idx,"unique_key"]:"", conf );
+	    if( conf["available"]:`no == `yes )
+		{
+		firstmouse = mouseprobelist[idx]:$[];
+		}
+	    idx = idx + 1;
+	    }
+	device  = firstmouse["dev_name"]:"";
+	unique_key = firstmouse["unique_key"]:"";
+	map mprotocol = firstmouse["mouse",0]:$[];	// "gpm" and "xf86"
 
-		y2milestone( "mprotocol: <%1>", mprotocol );
+	y2milestone( "mprotocol: <%1>", mprotocol );
 
-		buttons = mprotocol["buttons"]:0;
-		wheels  = mprotocol["wheels"]:0;
-		gpm	    = mprotocol["gpm"]:"";
-		mset    = mprotocol["xf86"]:"";
-		emul3   = mprotocol["emul3"]:(buttons<3);
-		// ...
-		// find mouse in database
-		// ---
-		map mice = SCR::Read (.target.yast2, "mouse_raw.ycp");
-		foreach (string mouse_id, list mouse_data, mice, ``{
-			map data = mouse_data[1]:$[];
-			if ((data["gpm"]:"" == gpm) && (data["device"]:"" == device)) {
-				mouse = mouse_id;
-			}
-		});
+	buttons = mprotocol["buttons"]:0;
+	wheels  = mprotocol["wheels"]:0;
+	gpm	= mprotocol["gpm"]:"";
+	mset    = mprotocol["xf86"]:"";
+	emul3   = mprotocol["emul3"]:(buttons<3);
+	// ...
+	// find mouse in database
+	// ---
+	map mice = SCR::Read (.target.yast2, "mouse_raw.ycp");
+	foreach( string mouse_id, list mouse_data, mice, ``{
+	    map data = mouse_data[1]:$[];
+	    if ((data["gpm"]:"" == gpm) && (data["device"]:"" == device)) 
+		{
+		mouse = mouse_id;
+		}
+	    });
 	} // mprotocol found
 
-	if ( mouse == "none" ) {
-		y2warning("No mouse found, probed '%1'", mouseprobelist);
+    if( mouse == "none" ) 
+	{
+	y2warning("No mouse found, probed '%1'", mouseprobelist);
 	}
-	y2milestone ("Mouse::Probe %1", mouse);
-	return mouseprobelist;
-}
+    y2milestone ("Mouse::Probe %1", mouse);
+    return mouseprobelist;
+    }
 }
