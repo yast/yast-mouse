@@ -17,6 +17,7 @@
 
 textdomain "mouse";
 
+import "CommandLine";
 import "Label";
 import "Stage";
 import "Mouse";
@@ -26,13 +27,53 @@ import "Wizard";
 //==========================================
 // Memorize the current mouse.
 //------------------------------------------
-string mouse_on_entry = Mouse::mouse;
+string mouse_on_entry = "";
 
-//==========================================
-// Check if this is a reconfiguration run.
-//------------------------------------------
-y2milestone( "Stage::reprobe %1 Mouse:%2", Stage::reprobe(), Mouse::mouse );
-if( Stage::reprobe() )
+/**
+ * read mouse settings
+ */
+define boolean MouseRead () {
+
+    //==========================================
+    // Memorize the current mouse.
+    //------------------------------------------
+    mouse_on_entry = Mouse::mouse;
+    y2milestone( "Stage::reprobe %1 Mouse:%2", Stage::reprobe(), Mouse::mouse);
+    return true;
+}
+
+/**
+ * write mouse settings
+ */
+define boolean MouseWrite () {
+
+    Mouse::Save();
+    return true;
+}
+
+/**
+ * print mouse configuration summary
+ */
+define boolean MouseSummaryHandler (map options) {
+
+    foreach (string mouse_code, string name, Mouse::Selection (), {
+	if (mouse_on_entry == mouse_code)
+	    // summary entry
+	    CommandLine::Print (sformat (_("Current mouse type: %1"), name));
+    });
+    return false;// = do not call write
+}
+
+/**
+ * the mouse configuration sequence
+ */
+define any MouseSequence () {
+
+    MouseRead ();
+    //==========================================
+    // Check if this is a reconfiguration run.
+    //------------------------------------------
+    if( Stage::reprobe() )
     {
     if( Mouse::mouse != "ignore" )
 	{
@@ -45,12 +86,10 @@ if( Stage::reprobe() )
 	Mouse::Set( Mouse::mouse );
 	SCR::Execute ( .target.bash, hwupdate + " --mouse");
 	}
-    else
-	{
-	}
     }
 
-if( !Stage::reprobe() || Mouse::mouse != "ignore" )
+    any result = `cancel;
+    if( !Stage::reprobe() || Mouse::mouse != "ignore" )
     {
     //==========================================
     // create the wizard dialog
@@ -72,7 +111,6 @@ if( !Stage::reprobe() || Mouse::mouse != "ignore" )
     // call inst_mouse and init list according
     // to the sysconfig variables
     //------------------------------------------
-    any result = nil;
     result =  WFM::CallFunction ( "inst_mouse", [ true, true ] );
 
     //==========================================
@@ -86,7 +124,7 @@ if( !Stage::reprobe() || Mouse::mouse != "ignore" )
 	// system configuration.
 	// ---
 	y2milestone("User selected new mouse: <%1>", Mouse::mouse );
-	Mouse::Save();
+	MouseWrite ();
 	}
     else
 	{
@@ -96,12 +134,30 @@ if( !Stage::reprobe() || Mouse::mouse != "ignore" )
 	y2milestone( "User cancelled --> no change" );
 	}
 
-    return UI::CloseDialog();
+    UI::CloseDialog();
     }
-else
-    {
-    return( true );
-    }
+    return result;
+}
+
+/* -- the command line description map -------------------------------------- */
+map cmdline = $[
+    "id"		: "mouse",
+    // translators: command line help text for mouse module
+    "help"		: _("Mouse configuration."),
+    "guihandler"	: MouseSequence,
+    "initialize"	: MouseRead,
+    "finish"		: MouseWrite,
+    "actions"		: $[
+	"summary" :$[
+	    "handler"	: MouseSummaryHandler,
+	    // command line help text for 'summary' action
+	    "help"	: _("Mouse configuration summary."),
+	],
+    ],
+];
+
+CommandLine::Run (cmdline);
+return true;
 
 /* EOF */
 }

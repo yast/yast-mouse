@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jan  7 10:58:07 CET 2005 - jsuchome@suse.cz
+
+- added basic command-line support
+
+-------------------------------------------------------------------
 Tue Oct 26 18:32:43 CEST 2004 - fehr@suse.de
 
 - updated to new Mode/Stage interface
