@@ -1,5 +1,6 @@
 @HEADER-COMMENT@
-# neededforbuild ycpdoc yast2-devel-packages
+
+# neededforbuild yast2-devel-packages
 
 @HEADER@
 Requires:	yast2 yast2-lib-wizard
@@ -33,4 +34,4 @@ Summary:	Setting the mouse
 
 @scrconfdir@/*.scr
 
-%doc @DOCDIR@
+%doc @docdir@
