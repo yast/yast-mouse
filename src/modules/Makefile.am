@@ -3,7 +3,6 @@
 #
 
 module_DATA = 				\
-	Mouse.ycp			\
-	XF86Mouse.ycp
+	Mouse.ycp
 
 EXTRA_DIST = $(module_DATA)
