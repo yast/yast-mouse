@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep  9 11:26:49 CEST 2002 - fehr@suse.de
+
+- remove mouse entry from y2cc for S390 (#19196)
+- version 2.6.14
+
+-------------------------------------------------------------------
 Fri Sep  6 16:40:12 CEST 2002 - fehr@suse.de
 
 - fix some Provides/Obsoletes

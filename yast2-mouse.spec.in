@@ -14,8 +14,6 @@ Obsoletes:      y2d_inst-mouse
 Provides:       y2t_inst-mouse
 Obsoletes:      y2t_inst-mouse
 
-BuildArchitectures:	noarch
-
 Summary:	Setting the mouse
 
 %description
@@ -33,7 +31,8 @@ Summary:	Setting the mouse
 %defattr(-,root,root)
 @moduledir@/*.ycp
 @clientdir@/*.ycp
-@configdir@/*.y2cc
-@ydatadir@/*.ycp
+%ifnarch s390 s390x
+@configdir@/mouse.y2cc
+%endif
 @scrconfdir@/*.scr
 %doc @docdir@
