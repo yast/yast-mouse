@@ -40,6 +40,8 @@ boolean already_probed = false;	    // memorize if already probed
 
 list<map> plist = [];                    // list got from last probing
 
+global define void Set( string mouse_id );
+
 //==========================================
 // Restore...
 //------------------------------------------
@@ -91,6 +93,10 @@ global define void Mouse()
     // from sysconfig.
     // ---
     Restore();
+    if( size(mouse)>0 && Mode::cont )
+        {
+        Set( mouse );
+	}
     }
 
 //==========================================
