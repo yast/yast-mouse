@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep 11 15:21:20 CEST 2002 - fehr@suse.de
+
+- fix wrong name for sysconfig entry MOUSE->MOUSEDEICE (#19450)
+- 2.6.16
+
+-------------------------------------------------------------------
 Mon Sep  9 22:06:53 CEST 2002 - kkaempf@suse.de
 
 - re-include mouse_raw.ycp

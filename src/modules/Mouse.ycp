@@ -380,7 +380,7 @@ global define boolean Restore() ``{
 	// Restore the the data from sysconfig.
 	// ---
 	mouse	= Misc::SysconfigRead(.sysconfig.mouse.YAST_MOUSE, mouse );
-	device	= Misc::SysconfigRead(.sysconfig.mouse.MOUSE, device );
+	device	= Misc::SysconfigRead(.sysconfig.mouse.MOUSEDEVICE, device );
 	gpm	= Misc::SysconfigRead(.sysconfig.mouse.GPM_PROTOCOL, gpm );
 	name	= Misc::SysconfigRead(.sysconfig.mouse.FULLNAME, name );
 	emul3	= (Misc::SysconfigRead(.sysconfig.mouse.XEMU3,
