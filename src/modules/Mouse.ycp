@@ -198,9 +198,10 @@
 
 	// Get mouse data base for possible retranslation.
 	//
-	map mice = Misc::ReadAlternateFile ("mouse_db.ycp", "mouse_raw.ycp");
+	map mice = SCR::Read (.target.yast2, ["mouse_raw.ycp", $[]]);
 
-	name  = Misc::translate (mice[mouse_id, 0]:$[], Language::language);
+	locale translate = mice[mouse_id, 0]:mouse_id;
+	name = translate;
 	
 	y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
 
@@ -327,15 +328,14 @@
 
     global define map Selection()
     ``{
-	// try translated mouse.ycp first, if this doesnt exist
-	// use the raw (untranslated) version
-	//
-	map mice = Misc::ReadAlternateFile ("mouse_db.ycp", "mouse_raw.ycp");
+	locale translate = "";
+	string mouse_name = "";
+	map mice = SCR::Read (.target.yast2, ["mouse_raw.ycp", $[]]);
 
 	return mapmap (string mouse_code, list mouse_value, mice,
 	``{
-	    map mouse_name_map = mouse_value[0]:$[];
-	    string mouse_name  = Misc::translate (mouse_name_map, Language::language);
+	    translate = mouse_value[0]:"";
+	    mouse_name = translate;
 	    return [mouse_code, mouse_name];
 	});
     }
