@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Feb 23 11:20:32 CET 2004 - fehr@suse.de
+
+- device name cannot used to decide if PS/2 port or USB mouse (34713)
+- version 2.9.4
+
+-------------------------------------------------------------------
 Mon Feb 09 16:59:21 CET 2004 - arvin@suse.de
 
 - disabled loading of kernel modules input and mousedev
