@@ -26,5 +26,5 @@
 .sysconfig.gpm
 
 `ag_ini(
-  SCR::SysConfigFile("/etc/sysconfig/gpm")
+  SysConfigFile("/etc/sysconfig/gpm")
 )

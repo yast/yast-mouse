@@ -26,5 +26,5 @@
 .sysconfig.mouse
 
 `ag_ini(
-  SCR::SysConfigFile("/etc/sysconfig/mouse")
+  SysConfigFile("/etc/sysconfig/mouse")
 )
