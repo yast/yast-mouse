@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Sep 28 18:42:58 CEST 2004 - fehr@suse.de
+
+- fix incomplete retranslations (#46317)
+- 2.10.5
+
+-------------------------------------------------------------------
 Wed Sep 22 13:42:08 CEST 2004 - fehr@suse.de
 
 - place calls to SetDesktopIcon where they work (#45714)

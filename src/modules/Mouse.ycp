@@ -39,6 +39,8 @@ global string unique_key = "";		    // unique key
 boolean already_probed = false;	    // memorize if already probed
 
 list<map> plist = [];                    // list got from last probing
+map<string, list> mice = $[];
+boolean first_proposal = true;
 
 global define void Set( string mouse_id );
 
@@ -182,7 +184,7 @@ define list<map> do_really_probe( boolean manual )
 	// ...
 	// find mouse in database
 	// ---
-	map<string, list> mice = (map<string,list>)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
+	mice = (map<string,list>)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
 	list<list> tl = maplist( string mouse_id, list mouse_data, mice,
 				 ``{
 				 mouse_data[1,"id"] = mouse_id;
@@ -356,7 +358,7 @@ global define void Set( string mouse_id )
     // ...
     // Get mouse data base for possible retranslation.
     // ---
-    map<string, list> mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
+    mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     locale translate = mice[mouse_id, 0]:mouse_id;
     name = (string) eval (translate);
     y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
@@ -391,22 +393,24 @@ global define string MakeProposal( boolean force_reset,
     // ...
     // Return proposal string and set system mouse.
     // ---
-    y2milestone("force_reset: %1", force_reset);
-    y2milestone("language_changed: %1", language_changed);
+    y2milestone("MakeProposal force_reset: %1 language_changed: %2", 
+                force_reset, language_changed );
+    string n = "";
+
+    if( size(mice)==0 || first_proposal || language_changed )
+	{
+	mice = (map<string, list>)eval(SCR::Read( .target.yast2, ["mouse_raw.ycp", $[]] ));
+	}
+    first_proposal = false;
 
     if( force_reset )
 	{
 	string mouse_id = Probe();
 	Set( mouse_id );
 	}
-    else
-	{
-	if( language_changed )
-	    {
-	    Set( mouse );
-	    }
-	}
-    return name;
+    n = mice[mouse, 0]:mouse;
+    y2milestone("MakeProposal ret: %1", n );
+    return n;
     }
 
 
@@ -437,7 +441,7 @@ global define map<string, string> Selection()
     // ---
     locale translate = "";
     string mouse_name = "";
-    map<string, list> mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
+    mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     map<string, string> selection =  mapmap( string mouse_code, list mouse_value, mice,
 	``{
 	translate = mouse_value[0]:"";
