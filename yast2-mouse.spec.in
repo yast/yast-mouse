@@ -27,6 +27,7 @@ Summary:	Setting the mouse
 
 %ifarch s390 s390x
 rm -f $RPM_BUILD_ROOT@configdir@/mouse.y2cc
+rm -f $RPM_BUILD_ROOT@desktopdir@/mouse.desktop
 %endif
 
 @CLEAN@
@@ -38,6 +39,7 @@ rm -f $RPM_BUILD_ROOT@configdir@/mouse.y2cc
 @clientdir@/*.ycp
 %ifnarch s390 s390x
 @configdir@/mouse.y2cc
+@desktopdir@/mouse.desktop
 %endif
 @scrconfdir@/*.scr
 %doc @docdir@
