@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 26 15:33:10 CEST 2002 - fehr@suse.de
+
+- set unconfigured mouse devices to "needed no" in HwInfo (#18252)
+- version 2.6.10
+
+-------------------------------------------------------------------
 Tue Aug 13 19:24:51 CEST 2002 - arvin@suse.de
 
 - create symbolic link to /dev/mouse (workaround for xmset)
