@@ -40,7 +40,7 @@ global string unique_key = "";		    // unique key
 string name_lang = "";		        // language of name
 boolean already_probed = false;	    // memorize if already probed
 
-list plist = [];                    // list got from last probing
+list<map> plist = [];                    // list got from last probing
 
 //==========================================
 // Restore...
@@ -98,7 +98,7 @@ global define void Mouse()
 //==========================================
 // do_really_probe...
 //------------------------------------------
-define list do_really_probe( boolean manual )
+define list<map> do_really_probe( boolean manual )
     ``{
     // ...
     // Do a hardware probing of the attached mouse. Depending on the
@@ -109,11 +109,11 @@ define list do_really_probe( boolean manual )
     // in this case if possible.
     // ---
     y2milestone("Really probing");
-    list mouseprobelist = [];
+    list<map> mouseprobelist = [];
     if( manual )
 	{
 	// libhd data lookup
-	mouseprobelist = (list)SCR::Read(.probe.mouse.manual);
+	mouseprobelist = (list<map>)SCR::Read(.probe.mouse.manual);
 	y2milestone( "Probed manual (no HW interception): <%1>",
 		     mouseprobelist );
 	if( mouseprobelist == nil ) mouseprobelist = [];
@@ -130,7 +130,7 @@ define list do_really_probe( boolean manual )
     else
 	{
 	// real hardware interception
-	mouseprobelist = (list)SCR::Read(.probe.mouse);
+	mouseprobelist = (list<map>)SCR::Read(.probe.mouse);
 	y2milestone("Really probed with HW interception: <%1>", mouseprobelist);
 	if( mouseprobelist == nil ) mouseprobelist = [];
 	if( mouseprobelist != [] )
@@ -177,7 +177,7 @@ define list do_really_probe( boolean manual )
 	// ...
 	// find mouse in database
 	// ---
-	map mice = (map)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
+	map<string, list> mice = (map<string,list>)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
 	foreach( string mouse_id, list mouse_data, mice, ``{
 	    map data = mouse_data[1]:$[];
 	    if ((data["gpm"]:"" == gpm) && (data["device"]:"" == device))
@@ -338,7 +338,7 @@ global define void Set( string mouse_id )
     // ...
     // Get mouse data base for possible retranslation.
     // ---
-    map mice = (map)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
+    map<string, list> mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     locale translate = mice[mouse_id, 0]:mouse_id;
     name = (string) eval (translate);
     y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
@@ -424,7 +424,7 @@ global define map Selection()
     // ---
     locale translate = "";
     string mouse_name = "";
-    map mice = (map)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
+    map<string, list> mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     map selection =  mapmap( string mouse_code, list mouse_value, mice,
 	``{
 	translate = mouse_value[0]:"";
