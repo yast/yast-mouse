@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jan 29 12:26:28 CET 2003  - fehr@suse.de
+
+- patch proofreaded texts back into ycp
+- 2.7.2 
+
+-------------------------------------------------------------------
 Thu Jan 16 11:55:50 CET 2003  - fehr@suse.de
 
 - add mouse type "ignore" to prevent calling YaST2 on system boot
