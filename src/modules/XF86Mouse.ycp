@@ -21,7 +21,7 @@
  */
 {
     module "XF86Mouse";
-    textdomain "x11";
+    textdomain "mouse";
 
     import "Mouse";
     import "Mode";
