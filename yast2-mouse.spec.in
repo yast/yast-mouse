@@ -1,9 +1,9 @@
 @HEADER-COMMENT@
 
-# neededforbuild yast2-devel-packages
+# neededforbuild  yast2-devel-packages
 
 @HEADER@
-Requires:	yast2 yast2-lib-wizard
+Requires:	yast2
 Provides:	yast2-config-mouse
 Obsoletes:	yast2-config-mouse
 
