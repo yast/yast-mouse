@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Sep  8 13:16:55 CEST 2003 - fehr@suse.de
+
+- prevent return of nil in do_really_probe
+- 2.8.5
+
+-------------------------------------------------------------------
 Sun Aug 31 15:02:38 CEST 2003 - arvin@suse.de
 
 - use Popup::ConfirmAbort

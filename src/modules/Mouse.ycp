@@ -461,8 +461,7 @@ define list do_really_probe( boolean manual )
 	    // hardware probing as fallback
 	    // ---
 	    y2warning("Manual probing failed ==> Now trying a real HW Probing");
-	    do_really_probe( false );
-	    return;
+	    return( do_really_probe( false ));
 	    }
 	}
     else
