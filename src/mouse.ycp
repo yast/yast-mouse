@@ -59,7 +59,7 @@ define boolean MouseSummaryHandler (map options) {
     foreach (string mouse_code, string name, Mouse::Selection (), {
 	if (mouse_on_entry == mouse_code)
 	    // summary entry
-	    CommandLine::Print (sformat (_("Current mouse type: %1"), name));
+	    CommandLine::Print (sformat (_("Current Mouse Type: %1"), name));
     });
     return false;// = do not call write
 }
