@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jul 26 16:14:30 CEST 2002 - ms@suse.de
+
+- fixed handling if mouse is disconnected (#16239)
+
+-------------------------------------------------------------------
 Tue Jul 23 13:48:28 CEST 2002 - fehr@suse.de
 
 - add eval() around assignment of locale to string
