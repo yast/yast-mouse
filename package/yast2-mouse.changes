@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jul 30 16:59:48 CEST 2002 - ms@suse.de
+
+- changed variable naming: MOUSE -> MOUSEDEVICE 
+
+-------------------------------------------------------------------
 Tue Jul 30 15:58:53 CEST 2002 - ms@suse.de
 
 - add MOUSETYPE to /etc/sysconfig/mouse (#17266)
