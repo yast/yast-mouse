@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Mon Feb 24 12:06:21 CET 2003  - fehr@suse.de
 
-- fix bug that manual setting get overroden by reprobe in 
+- fix bug that manual setting get overridden by reprobe in 
   Mouse::Save() (#24120)
 - version 2.7.4
 
