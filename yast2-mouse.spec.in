@@ -1,0 +1,39 @@
+@HEADER-COMMENT@
+# neededforbuild yast2-devtools  autoconf automake ycpdoc yast2-testsuite dejagnu expect tcl yast2-core yast2-core-devel
+
+@HEADER@
+Requires:	yast2 yast2-lib-wizard
+Provides:	yast2-config-mouse
+Obsoletes:	yast2-config-mouse
+
+BuildArchitectures:	noarch
+
+Summary:	Setting the mouse
+
+%description
+-
+
+@PREP@
+
+@BUILD-YCP@
+
+@INSTALL-YCP@
+
+@CLEAN@
+
+%files
+%defattr(-,root,root)
+@YAST2DIR@/modules/Mouse.ycp
+@YAST2DIR@/modules/XF86Mouse.ycp
+
+@YAST2DIR@/clients/mouse.ycp
+@YAST2DIR@/clients/inst_mouse.ycp
+
+@YAST2DIR@/config/mouse.y2cc
+
+@YAST2DIR@/mouse_raw.ycp
+
+@YAST2DIR@/scrconf/cfg_mouse.scr
+@YAST2DIR@/scrconf/cfg_gpm.scr
+
+%doc @DOCDIR@

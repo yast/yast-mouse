@@ -1,0 +1,62 @@
+-------------------------------------------------------------------
+Mon Jun 24 12:47:46 CEST 2002 - kkaempf@suse.de
+
+- merge mouse related stuff from yast2.rpm
+- rename to "yast2-mouse"
+
+-------------------------------------------------------------------
+Mon May 27 18:18:51 CEST 2002 - sh@suse.de
+
+- Added missing files to files list 
+
+-------------------------------------------------------------------
+Wed May 22 16:46:59 MEST 2002 - tom@suse.de
+
+- Invented modules dir.
+  Moved X11 functionality from mouse.ycp to Mouse.ycp.
+
+-------------------------------------------------------------------
+Tue May  7 18:50:36 MEST 2002 - tom@suse.de
+
+- Integration of core functionality (formerly in yast2 package) finished.
+
+-------------------------------------------------------------------
+Mon Apr 22 14:00:23 MEST 2002 - tom@suse.de
+
+- Merge with 8.0 branch.
+
+-------------------------------------------------------------------
+Wed Mar 20 17:30:02 MET 2002 - tom@suse.de
+
+- (#14663) Reverting to previous version.
+
+-------------------------------------------------------------------
+Wed Mar 20 16:36:45 MET 2002 - tom@suse.de
+
+- (#14663) Fixed missing Requires for trans-package.
+
+-------------------------------------------------------------------
+Tue Mar 12 18:30:39 MET 2002 - tom@suse.de
+
+- Not running suseconfig anymore.
+
+-------------------------------------------------------------------
+Mon Feb 18 15:45:20 MET 2002 - tom@suse.de
+
+- Implemented reprobe functionality.
+
+-------------------------------------------------------------------
+Fri Feb 15 15:35:28 MET 2002 - tom@suse.de
+
+- (#13355) Renamed choose_mouse.ycp --> mouse.ycp
+
+-------------------------------------------------------------------
+Fri Feb  8 21:10:06 MET 2002 - tom@suse.de
+
+- Now working with new Modul-archtecture.
+
+-------------------------------------------------------------------
+Wed Jan 16 17:58:59 MET 2002 - tom@suse.de
+
+- Initial version
+
