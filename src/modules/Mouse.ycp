@@ -177,7 +177,7 @@ define list do_really_probe( boolean manual )
 	// ...
 	// find mouse in database
 	// ---
-	map mice = (map)SCR::Read (.target.yast2, "mouse_raw.ycp");
+	map mice = (map)eval(SCR::Read (.target.yast2, "mouse_raw.ycp"));
 	foreach( string mouse_id, list mouse_data, mice, ``{
 	    map data = mouse_data[1]:$[];
 	    if ((data["gpm"]:"" == gpm) && (data["device"]:"" == device))
@@ -332,7 +332,7 @@ global define void Set( string mouse_id )
     // ...
     // Get mouse data base for possible retranslation.
     // ---
-    map mice = (map)SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] );
+    map mice = (map)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     locale translate = mice[mouse_id, 0]:mouse_id;
     name = (string) eval (translate);
     y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
@@ -418,7 +418,7 @@ global define map Selection()
     // ---
     locale translate = "";
     string mouse_name = "";
-    map mice = (map)SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] );
+    map mice = (map)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
     map selection =  mapmap( string mouse_code, list mouse_value, mice,
 	``{
 	translate = mouse_value[0]:"";

@@ -3,8 +3,10 @@
  * Author: Unknown <yast2-hacker@suse.de>
    textdomain "mouse"
  */
+{
+textdomain "mouse";
 
-$[
+return ($[
 "00_ps2"   : [ _("PS/2 mouse (Aux-port)"),
                $["mset":"PS/2",        "gpm":"ps2",      "device":"/dev/psaux",      "emul3":true,  "wheels":0 ]],
 "01_ms0"   : [ _("Microsoft compatible serial mouse - (ttyS0 - COM1)"),
@@ -57,6 +59,8 @@ $[
                $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]],
 "ignore"   : [ _("Ignore Mouse -- regardless of if one exists"),
                $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]]
-]
+]);
+
 
 /* EOF */
+}
