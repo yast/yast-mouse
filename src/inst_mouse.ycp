@@ -115,6 +115,9 @@ described in the manual.
 			help_text,
 			(boolean)WFM::Args(0), (boolean)WFM::Args(1));
 
+    if ( Mode::initial )
+	Wizard::SetTitleIcon( "mouse" );
+
 
     // Initially set the current mouse to establish a consistent state.
     //
