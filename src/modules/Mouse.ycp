@@ -412,7 +412,7 @@ global define boolean Found ()
 //==========================================
 // Selection...
 //------------------------------------------
-global define map Selection()
+global define map<string, string> Selection()
     ``{
     // ...
     // Return a map of ids and names to build up a selection list
@@ -425,7 +425,7 @@ global define map Selection()
     locale translate = "";
     string mouse_name = "";
     map<string, list> mice = (map<string, list>)eval(SCR::Read ( .target.yast2, ["mouse_raw.ycp", $[]] ));
-    map selection =  mapmap( string mouse_code, list mouse_value, mice,
+    map<string, string> selection =  mapmap( string mouse_code, list mouse_value, mice,
 	``{
 	translate = mouse_value[0]:"";
 	mouse_name = (string)eval(translate);
