@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Fri Jun 28 14:44:43 CEST 2002 - fehr@suse.de
+
+- version 2.6.6
+- adapt to new naming scheme for potfiles
+- first package with new cvs
+- datafiles now in /usr/lib/YaST2/data
+
+-------------------------------------------------------------------
 Mon Jun 24 12:47:46 CEST 2002 - kkaempf@suse.de
 
 - merge mouse related stuff from yast2.rpm

@@ -64,18 +64,6 @@
 	    // Save changes...
 	    //
 	    Mouse::Save();
-
-	    // According to ro@suse.de it doesn't make sense to run individual
-	    // SuSEcongig modules because the set of modules and the variables
-	    // they contain may change any time.
-	    // ==> full SuSEconfig run
-	    //
-	    // This is currently commented out because it's not necessary anymore.
-	    // Leave it in since this may change again very soon.
-	    //
-	    //textdomain "general";
-	    
-	    //CallFunction( `inst_suseconfig( false, false ) );
 	}
 	else
 	{

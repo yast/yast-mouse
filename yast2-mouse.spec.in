@@ -1,5 +1,5 @@
 @HEADER-COMMENT@
-# neededforbuild yast2-devtools  autoconf automake ycpdoc yast2-testsuite dejagnu expect tcl yast2-core yast2-core-devel
+# neededforbuild ycpdoc yast2-devel-packages
 
 @HEADER@
 Requires:	yast2 yast2-lib-wizard
@@ -23,18 +23,14 @@ Summary:	Setting the mouse
 
 %files
 %defattr(-,root,root)
-@YAST2DIR@/modules/Mouse.ycp
-@YAST2DIR@/modules/XF86Mouse.ycp
+@moduledir@/*.ycp
 
-@YAST2DIR@/clients/mouse.ycp
-@YAST2DIR@/clients/inst_mouse.ycp
-@YAST2DIR@/clients/proposal_mouse.ycp
+@clientdir@/*.ycp
 
-@YAST2DIR@/config/mouse.y2cc
+@configdir@/*.y2cc
 
-@YAST2DIR@/mouse_raw.ycp
+@ydatadir@/*.ycp
 
-@YAST2DIR@/scrconf/cfg_mouse.scr
-@YAST2DIR@/scrconf/cfg_gpm.scr
+@scrconfdir@/*.scr
 
 %doc @DOCDIR@
