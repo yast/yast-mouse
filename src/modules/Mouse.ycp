@@ -20,7 +20,6 @@ import "Language";
 import "Misc";
 import "Mode";
 import "ModuleLoading";
-import "X11Version";
 import "XF86Mouse";
 
 //==========================================
@@ -395,7 +394,7 @@ global define void Save()
     // Change the respective XF86Config content to match the current settings.
     // Do this only in the running system _and_ if XFree4 is installed.
     // ---
-    if( X11Version::version == "4" && ( Mode::normal || Mode::reprobe ) )
+    if( Mode::normal || Mode::reprobe )
 	{
 	y2milestone ( "Storing settings into XF86Config file (XFree4).");
 	XF86Mouse::update();
