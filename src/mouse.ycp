@@ -55,8 +55,8 @@ if( !Mode::reprobe || Mouse::mouse != "ignore" )
     //==========================================
     // create the wizard dialog
     //------------------------------------------
-    Wizard::SetDesktopIcon("mouse");
     Wizard::CreateDialog();
+    Wizard::SetDesktopIcon("mouse");
 
     //==========================================
     // check if no mouse is connected
