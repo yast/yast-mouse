@@ -115,7 +115,8 @@ described in the manual.
 			help_text,
 			(boolean)WFM::Args(0), (boolean)WFM::Args(1));
 
-    if ( Mode::initial )
+    Wizard::SetDesktopIcon("mouse");
+    if( Mode::initial )
 	Wizard::SetTitleIcon( "mouse" );
 
 
