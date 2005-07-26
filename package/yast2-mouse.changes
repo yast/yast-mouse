@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul 26 12:04:05 CEST 2005 - ms@suse.de
+
+- removed usage of xf86config agent, the mouse module is used
+  to configure the GPM nothing more (#97996)
+
+-------------------------------------------------------------------
 Tue Mar 15 10:57:17 CET 2005 - ms@suse.de
 
 - fixed apply call (#72026)

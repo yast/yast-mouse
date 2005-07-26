@@ -1,134 +1,118 @@
-/**
- * File:	clients/mouse.ycp
- * Package:	Mouse configuration
- * Summary:	Main client
- * Authors:	Marcus Schäfer <ms@suse.de>
- *		Klaus Kämpf <kkaempf@suse.de>
- *		Michael Hager <mike@suse.de>
- *
- * $Id$
- */
-
+/**************
+FILE          : inst_mouse.ycp
+***************
+PROJECT       : YaST2 - Yet another Setup Tool
+              :
+AUTHOR        : Marcus Schäfer <ms@suse.de>
+              :
+BELONGS TO    : YaST2 - GPM mouse configuration
+              :
+DESCRIPTION   : mouse.ycp will call inst_mouse to initialize
+              : the target system GUI
+              :
+STATUS        : Development
+**************/
+/*! \brief YaST2 - GPM configuration interface
+*
+* File:	inst_mouse.ycp
+* Package:	Mouse configuration
+* Summary:	Main client
+* Authors:	Marcus Schäfer <ms@suse.de>
+*/
 {
+textdomain "mouse";
+//==========================================
+// Imports...
+//------------------------------------------
+import "Mode";
+import "Stage";
+import "Mouse";
+import "Wizard";
+import "Popup";
+import "GetInstArgs";
 
-    textdomain "mouse";
+//==========================================
+// Globals...
+//------------------------------------------
+string mouse_on_entry = Mouse::mouse;
+string mouse	  = Mouse::mouse;
 
-    import "Mode";
-    import "Stage";
-    import "Mouse";
-    import "Wizard";
-    import "Popup";
-    import "GetInstArgs";
-
-
-    /* ----------------------------------------------------------------------
-     * Mouse
-     * ----------------------------------------------------------------------*/
-
-    // Memorize the current mouse to be able to restore it.
-    //
-    string mouse_on_entry = Mouse::mouse;
-    string mouse	  = Mouse::mouse;
-
-
-    // Build the contents of the dialog.
-    // build mouse selection box
-    // with the default selection according to Mouse::mouse
-
-    if ( Mode::test() )
-    {
+//==========================================
+// Build dialog
+//------------------------------------------
+if ( Mode::test() ) {
 	mouse = "00_ps2";
-    }
+}
+term probe_mouse_check_button = `Empty();
+term test_button = `Empty();
 
-    /* ----------------------------------------------------------------------
-     * Build dialog
-     * ----------------------------------------------------------------------*/
-
-    term probe_mouse_check_button = `Empty();
-    term test_button = `Empty();
-
-    if (Mode::config())
-    {
+if (Mode::config()) {
 	Wizard::HideAbortButton();
-    }
-    else
-    {
+} else {
 	Wizard::OpenAcceptDialog();
-	// button text
-	test_button = `PushButton( `id(`apply), _("&Test") );
-    }
+	//test_button = `PushButton( `id(`apply), _("&Test") );
+}
 
-    term contents =
-      `VBox(
-	    `SelectionBox (`id(`mouse),
-			   // title for selection box 'mouse'
-			   _("Choose your &mouse type from the list"),
-			   maplist (string mouse_code, string mouse_name, Mouse::Selection (),
-			   ``{
-			      return `item(`id (mouse_code),
-					   mouse_name,
-					   mouse == mouse_code);
-			   } ) ),
-	    probe_mouse_check_button,
-	    `VSpacing(0.3),
-	    test_button,
-	    `VSpacing(0.5)
-	    );
+term contents =
+	`VBox(
+		`SelectionBox (`id(`mouse),
+			_("Choose your &mouse type from the list"),
+			maplist (string mouse_code, string mouse_name, Mouse::Selection (),
+			``{
+				return `item(`id (mouse_code),
+					mouse_name,
+					mouse == mouse_code);
+			} ) ),
+			probe_mouse_check_button,
+			`VSpacing(0.3),
+				test_button,
+			`VSpacing(0.5)
+	);
 
-    // Help text for mouse settings dialog - START:
-    //
-    // The user chooses a mouse type (e.g. Logitech MouseMan, PS/2,
-    // Microsoft serial) from a list. He can apply the settings with a
-    // "Test" button or just leave this dialog with "next" (this will
-    // also apply the settings). Special care needs to be taken to
-    // explain keyboard procedures since the mouse very likely does not
-    // work right now - otherwise the user wouldn't see this screen in
-    // the first place.
-    // help 1 of 4
-  string help_text = _("<p>
+//==========================================
+// help texts
+//------------------------------------------
+string help_text = _("<p>
 Choose the <b>mouse type</b> of the mouse attached to your computer.
 </p>
 ");
 
-    // Help text 2 of 4
-    help_text = help_text + _("<p>
+help_text = help_text + _("<p>
 Use the arrow keys to select a mouse. If the selection bar does not
 move, hit the <b><i>Tab</i></b> key (maybe repeatedly) until it does.
 </p>
 ");
-    if (!Mode::config())
-    {
-    // Help text 3 of 4
-    help_text = help_text + _("<p>
-Use the <b>Test</b> button to apply and test the selected settings.
-</p>
-");
-    }
 
-    // Help text 4 of 4
-    help_text = help_text + _("<p>
+if (!Mode::config()) {
+	help_text = help_text + _("<p>
+	Use the <b>Test</b> button to apply and test the selected settings.
+	</p>
+	");
+}
+
+help_text = help_text + _("<p>
 If you select <b>None</b>, you have to use the keyboard as
 described in the manual.
 </p>");
 
-    // heading text
-    Wizard::SetContents(_("Mouse configuration"), contents,
-			help_text,
-			GetInstArgs::enable_back(), GetInstArgs::enable_next());
+Wizard::SetContents(_("Mouse configuration"), contents,
+		help_text,
+		GetInstArgs::enable_back(), GetInstArgs::enable_next()
+);
 
-    Wizard::SetDesktopIcon("mouse");
-    if( Stage::initial() )
+Wizard::SetDesktopIcon("mouse");
+if( Stage::initial() ) {
 	Wizard::SetTitleIcon( "mouse" );
+}
 
+Mouse::Set( Mouse::mouse );
 
-    // Initially set the current mouse to establish a consistent state.
-    //
-    Mouse::Set( Mouse::mouse );
+any ret = nil;
 
-    any ret = nil;
-
-    repeat
-    {
+//==========================================
+// main loop
+//------------------------------------------
+repeat {
 	// In this dialog only, set the keyboard focus to the mouse
 	// selection box for every iteration of the input loop. If
 	// anything goes wrong here, the user has a hard enough time
@@ -136,57 +120,44 @@ described in the manual.
 	// how to get the keyboard focus into the list. He most likely
 	// doesn't have a working mouse right now (otherwise he wouldn't
 	// be here in the first place).
-
-
 	UI::SetFocus(`id(`mouse));
 	ret = Wizard::UserInput();
 
 	if ( !Mode::config() && ret == `abort
-	     && Popup::ConfirmAbort (`painless) )
+		&& Popup::ConfirmAbort (`painless) )
 	{
-	    break;
+		break;
 	}
 
-	if ( ret == `next || ret == `apply )
-	{
-	    string new_mouse = (string) UI::QueryWidget(`id(`mouse), `CurrentItem);
+	if ( ret == `next || ret == `apply ) {
+		string new_mouse = (string) UI::QueryWidget(`id(`mouse), `CurrentItem);
 
-	    if ( new_mouse != nil )
-	    {
+		if ( new_mouse != nil )
+		{
 		Mouse::Set( new_mouse );
 		if (Mode::config())
 		{
-		    import "AutoinstGeneral";
-		    AutoinstGeneral::mouse["id"] = Mouse::mouse;
+			import "AutoinstGeneral";
+			AutoinstGeneral::mouse["id"] = Mouse::mouse;
 		}
-	    }
+		}
 
-	    if ( ret == `next && new_mouse != mouse_on_entry )
-	    {
-		// User has chosen a different mouse from the database.
-		// ==> clear unique_key in the mouse module to achieve
-		// configured = no and needed = no in Mouse::save() for
-		// _ALL_ mice.
-		//
-		y2milestone("Clearing unique key <%1> due to manual selection", Mouse::unique_key );
+		if ( ret == `next && new_mouse != mouse_on_entry )
+		{
+		y2milestone("Clearing unique key <%1> due to manual selection",
+			Mouse::unique_key
+		);
 		Mouse::unique_key = "";
-	    }
+		}
 	}
-    } until( ret == `next || ret == `back || ret == `cancel );
+	} until( ret == `next || ret == `back || ret == `cancel );
 
-    if ( ret == `back || ret == `cancel )
-    {
+	if ( ret == `back || ret == `cancel )
+	{
 	y2milestone("`back or `cancel restoring: <%1>", mouse_on_entry );
-
-	// Reset mouse to initial state.
-	//
 	Mouse::Set( mouse_on_entry );
-    }
+	}
 
-
-    Wizard::CloseDialog();
-
-    return ret;
-
-/* EOF */
+	Wizard::CloseDialog();
+	return ret;
 }
