@@ -20,7 +20,7 @@ Icon=yast-mouse
 Exec=/sbin/yast2 mouse 
 
 Name=Mouse Model
-GenericName=Use this module to change the mouse model.
+GenericName=Change the mouse model
 Name[cs]=Zvolte model myši
 GenericName[cs]=Použijte tento modul k výběru modelu myši.
 Name[de]=Mausmodell wählen
