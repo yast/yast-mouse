@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Aug  3 08:04:29 CEST 2005 - jsuchome@suse.cz
+
+- run SaX to configure mouse in graphical mode (#99696)
+- 2.12.6
+
+-------------------------------------------------------------------
 Tue Jul 26 12:04:05 CEST 2005 - ms@suse.de
 
 - removed usage of xf86config agent, the mouse module is used

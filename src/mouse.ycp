@@ -31,6 +31,7 @@ textdomain "mouse";
 // Import...
 //------------------------------------------
 import "CommandLine";
+import "Confirm";
 import "Label";
 import "Stage";
 import "Mouse";
@@ -74,6 +75,19 @@ define boolean MouseSummaryHandler (map options) {
 // MouseSequence
 //------------------------------------------
 define any MouseSequence () {
+
+	map display_info	= (map) UI::GetDisplayInfo ();
+	if (!display_info["TextMode"]:true)
+	{
+	    if (Confirm::MustBeRoot ())
+	    {
+		// call sax
+		SCR::Execute (.target.bash, "/usr/sbin/sax2 -O Mouse");
+		return `finish;
+	    }
+	    return `cancel;
+	}
+
 	MouseRead ();
 	//==========================================
 	// Check if this is a reconfiguration run.
