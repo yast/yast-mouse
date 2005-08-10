@@ -333,7 +333,10 @@ global define string MakeProposal(
 
 	if( force_reset ) {
 		string mouse_id = Probe();
-		Set( mouse_id );
+		if (mouse_id == "none") {
+			Mouse::mouse = "none";
+		}
+		Set( Mouse::mouse );
 	}
 	n = mice[mouse, 0]:mouse;
 	y2milestone("MakeProposal ret: %1", n );

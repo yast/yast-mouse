@@ -93,13 +93,11 @@ define any MouseSequence () {
 	// Check if this is a reconfiguration run.
 	//------------------------------------------
 	if( Stage::reprobe() ) {
-	if( Mouse::mouse != "ignore" ) {
 		string mouseID = Mouse::Probe();
 		if (mouseID == "none") {
 		    Mouse::mouse = "none";
-	    }
+		}
 		Mouse::Set( Mouse::mouse );
-	}
 	}
 	any result = `cancel;
 	if( !Stage::reprobe() || Mouse::mouse != "ignore" ) {

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Wed Aug 10 16:19:12 CEST 2005 - ms@suse.de
+
+- fixed mouse detection
+
+-------------------------------------------------------------------
 Wed Aug  3 08:04:29 CEST 2005 - jsuchome@suse.cz
 
 - run SaX to configure mouse in graphical mode (#99696)
