@@ -85,7 +85,7 @@ move, hit the <b><i>Tab</i></b> key (maybe repeatedly) until it does.
 
 if (!Mode::config()) {
 	help_text = help_text + _("<p>
-	Use the <b>Test</b> button to apply and test the selected settings.
+	Use <b>Test</b> to apply and test the selected settings.
 	</p>
 	");
 }
