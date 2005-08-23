@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Aug 23 16:12:55 CEST 2005 - ms@suse.de
+
+- include mouse proposal for text mode installation only (#106631)
+
+-------------------------------------------------------------------
 Tue Aug 23 12:16:30 CEST 2005 - ms@suse.de
 
 - removed apply text from help text (#106649)
