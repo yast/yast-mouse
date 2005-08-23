@@ -83,13 +83,6 @@ move, hit the <b><i>Tab</i></b> key (maybe repeatedly) until it does.
 </p>
 ");
 
-if (!Mode::config()) {
-	help_text = help_text + _("<p>
-	Use <b>Test</b> to apply and test the selected settings.
-	</p>
-	");
-}
-
 help_text = help_text + _("<p>
 If you select <b>None</b>, you have to use the keyboard as
 described in the manual.
