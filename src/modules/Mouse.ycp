@@ -396,7 +396,7 @@ global define void Save() ``{
 	y2milestone("device %1 mouse %2 reprobe:%3",
 		device, mouse, Stage::reprobe()
 	);
-	if((device != "") || mouse=="none" || mouse=="ignore" || Stage::reprobe()) {
+	if((device != "") || (mouse=="none") || (Stage::reprobe())) {
 		// if we have a mouse device, set gpm_param
 		SCR::Write( .sysconfig.mouse.FULLNAME, name);
 		SCR::Write( .sysconfig.mouse.FULLNAME.comment,

@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Fri Oct 14 13:30:26 CEST 2005 - ms@suse.de
+
+- fixed mouse probe code. A mouse needs to be reprobed if we are
+  in reprobe() stage or if there is no valid tag written to
+  /etc/sysconfig/mouse:YAST_MOUSE.
+- removed that weird <ignore> entry nobody did understand. I couldn't
+  find any case where it would be usefull to display something like
+  that.
+
+-------------------------------------------------------------------
 Tue Aug 23 16:12:55 CEST 2005 - ms@suse.de
 
 - include mouse proposal for text mode installation only (#106631)

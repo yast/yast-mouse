@@ -92,7 +92,7 @@ define any MouseSequence () {
 	//==========================================
 	// Check if this is a reconfiguration run.
 	//------------------------------------------
-	if( Stage::reprobe() ) {
+	if((Stage::reprobe()) || (mouse_on_entry == "none")) {
 		string mouseID = Mouse::Probe();
 		if (mouseID == "none") {
 		    Mouse::mouse = "none";
@@ -100,45 +100,43 @@ define any MouseSequence () {
 		Mouse::Set( Mouse::mouse );
 	}
 	any result = `cancel;
-	if( !Stage::reprobe() || Mouse::mouse != "ignore" ) {
-		//==========================================
-		// create the wizard dialog
-		//------------------------------------------
-		Wizard::CreateDialog();
+	//==========================================
+	// create the wizard dialog
+	//------------------------------------------
+	Wizard::CreateDialog();
 
-		//==========================================
-		// check if no mouse is connected
-		//------------------------------------------
-		if( Stage::reprobe() && (Mouse::mouse=="none") ) {
-			Popup::TimedMessage( _("No mouse connected to the system..."), 10);
-			y2milestone ( "No mouse detected --> unchanged" );
-			return UI::CloseDialog();
-		}
-
-		//==========================================
-		// call inst_mouse and init mouse list
-		//------------------------------------------
-		result = WFM::CallFunction ( "inst_mouse", [ true, true ] );
-
-		//==========================================
-		// handle result value from the config
-		//------------------------------------------
-		if( result == `next ) {
-			// ...
-			// User accepted the the setting.
-			// Only if the user has chosen a different mouse change the
-			// system configuration.
-			// ---
-			y2milestone("User selected new mouse: <%1>", Mouse::mouse );
-			MouseWrite ();
-		} else {
-			// ...
-			// `cancel or `back selected
-			// ---
-			y2milestone( "User cancelled --> no change" );
-		}
-		UI::CloseDialog();
+	//==========================================
+	// check if no mouse is connected
+	//------------------------------------------
+	if( Stage::reprobe() && (Mouse::mouse=="none") ) {
+		Popup::TimedMessage( _("No mouse connected to the system..."), 10);
+		y2milestone ( "No mouse detected --> unchanged" );
+		return UI::CloseDialog();
 	}
+
+	//==========================================
+	// call inst_mouse and init mouse list
+	//------------------------------------------
+	result = WFM::CallFunction ( "inst_mouse", [ true, true ] );
+
+	//==========================================
+	// handle result value from the config
+	//------------------------------------------
+	if( result == `next ) {
+		// ...
+		// User accepted the the setting.
+		// Only if the user has chosen a different mouse change the
+		// system configuration.
+		// ---
+		y2milestone("User selected new mouse: <%1>", Mouse::mouse );
+		MouseWrite ();
+	} else {
+		// ...
+		// `cancel or `back selected
+		// ---
+		y2milestone( "User cancelled --> no change" );
+	}
+	UI::CloseDialog();
 	return result;
 }
 

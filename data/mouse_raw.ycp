@@ -58,8 +58,6 @@ return ($[
                $["mset":"ExplorerPS/2","gpm":"exps2", "bus":"USB", "device":"/dev/input/mice", "emul3":false, "wheels":1 ]],
 "none"     : [ _("NONE "),
                $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]],
-"ignore"   : [ _("Ignore Mouse -- regardless of if one exists"),
-               $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]]
 ]);
 
 
