@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Mar  6 12:16:26 CET 2006 - ms@suse.de
+
+- adapt BuildRequires
+
+-------------------------------------------------------------------
 Fri Oct 14 13:30:26 CEST 2005 - ms@suse.de
 
 - fixed mouse probe code. A mouse needs to be reprobed if we are
