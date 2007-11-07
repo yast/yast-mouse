@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Nov  7 12:42:22 CET 2007 - locilka@suse.cz
+
+- AutoinstGeneral::mouse moved to AutoinstData::mouse (yast2.rpm)
+  to break YaST dependencies.
+- 2.16.0
+
+-------------------------------------------------------------------
 Fri May 25 13:30:04 CEST 2007 - jsrain@suse.cz
 
 - removed outdated translations from .desktop-files (#271209)

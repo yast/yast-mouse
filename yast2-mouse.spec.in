@@ -1,9 +1,9 @@
 @HEADER-COMMENT@
 
 @HEADER@
-BuildRequires: perl-XML-Writer update-desktop-files yast2 yast2-devtools
-yast2-testsuite
-Requires:	yast2
+BuildRequires: perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-testsuite
+# AutoinstData
+Requires:	yast2 >= 2.16.8
 Provides:	yast2-config-mouse
 Obsoletes:	yast2-config-mouse
 Provides:	yast2-db-mouse
