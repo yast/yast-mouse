@@ -5,7 +5,9 @@ SUBDIRS = modules proposal
 
 client_DATA =			\
 	mouse.ycp		\
-	inst_mouse.ycp
+	inst_mouse.ycp		\
+	mouse_finish.ycp	\
+	inst_init_mouse.ycp
 
 desktop_DATA =			\
 	mouse.desktop

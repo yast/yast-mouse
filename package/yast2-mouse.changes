@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jan 21 13:19:24 CET 2009 - locilka@suse.cz
+
+- Installation-related scripts have been moved here from
+  yast2-installation to reduce the current dependencies.
+- 2.18.0
+
+-------------------------------------------------------------------
 Fri May 16 16:40:22 CEST 2008 - jsrain@suse.cz
 
 - added categories Settings and System into desktop file
