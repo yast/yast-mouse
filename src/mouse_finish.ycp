@@ -19,7 +19,7 @@
 //
 // SCR::Write is called before SCR is switched to the installed system
 
-textdomain "installation";
+textdomain "mouse";
 
 import "Progress";
 import "Installation";

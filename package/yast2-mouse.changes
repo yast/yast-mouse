@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Mar  6 09:02:25 CET 2009 - jsrain@suse.cz
+
+- fixed textdomain
+
+-------------------------------------------------------------------
 Wed Jan 21 13:19:24 CET 2009 - locilka@suse.cz
 
 - Installation-related scripts have been moved here from
