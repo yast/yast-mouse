@@ -18,7 +18,7 @@ Obsoletes:      y2t_inst-mouse
 # Mouse-related installation scripts were moved here
 Conflicts:	yast2-installation < 2.18.2
 
-Summary:	Setting the mouse
+Summary:	YaST2 - Mouse Configuration
 
 %description
 -
