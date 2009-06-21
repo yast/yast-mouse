@@ -21,7 +21,8 @@ Conflicts:	yast2-installation < 2.18.2
 Summary:	YaST2 - Mouse Configuration
 
 %description
--
+A Mouse configuration module to be called from the YaST2 control
+center.
 
 @PREP@
 
