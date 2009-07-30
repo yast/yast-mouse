@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 30 20:56:18 CEST 2009 - jdsn@suse.de
+
+- disabled to call sax2 when GPM configuration is called in
+  graphical mode (bnc#441404)
+- 2.18.1
+
+-------------------------------------------------------------------
 Fri Mar  6 09:02:25 CET 2009 - jsrain@suse.cz
 
 - fixed textdomain

@@ -79,13 +79,15 @@ define any MouseSequence () {
 	map display_info	= (map) UI::GetDisplayInfo ();
 	if (!display_info["TextMode"]:true)
 	{
-	    if (Confirm::MustBeRoot ())
-	    {
-		// call sax
-		SCR::Execute (.target.bash, "/usr/sbin/sax2 -O Mouse");
-		return `finish;
-	    }
-	    return `cancel;
+            // disable mouse module in non-Textmode (bnc#441404)
+            y2milestone("YaST2 gpm (formerly known as 'mouse') was started in GUI mode. It is intended to configure the mouse for the console only. Mouse configuration for X is configured automatically by the X-Server.");
+	    //if (Confirm::MustBeRoot ())
+	    //{
+	    //  // call sax
+	    //  SCR::Execute (.target.bash, "/usr/sbin/sax2 -O Mouse");
+	    //  return `finish;
+	    //}
+	    //return `cancel;
 	}
 
 	MouseRead ();
