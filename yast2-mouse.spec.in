@@ -1,26 +1,24 @@
 @HEADER-COMMENT@
 
 @HEADER@
-Group:	System/YaST
-License: GPL v2 or later
-BuildRequires: perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-testsuite
+Group:          System/YaST
+License:        GPL v2 or later
+BuildRequires:  perl-XML-Writer update-desktop-files yast2 yast2-devtools yast2-testsuite
 # AutoinstData
-Requires:	yast2 >= 2.16.8
-Provides:	yast2-config-mouse
-Obsoletes:	yast2-config-mouse
-Provides:	yast2-db-mouse
-Obsoletes:	yast2-db-mouse
-Provides:	yast2-trans-inst-mouse
-Obsoletes:	yast2-trans-inst-mouse
+Requires:       yast2 >= 2.16.8
+Provides:       yast2-config-mouse
+Obsoletes:      yast2-config-mouse
+Provides:       yast2-db-mouse
+Obsoletes:      yast2-db-mouse
+Provides:       yast2-trans-inst-mouse
+Obsoletes:      yast2-trans-inst-mouse
 Provides:       y2d_inst-mouse
 Obsoletes:      y2d_inst-mouse
 Provides:       y2t_inst-mouse
 Obsoletes:      y2t_inst-mouse
-
 # Mouse-related installation scripts were moved here
-Conflicts:	yast2-installation < 2.18.2
-
-Summary:	YaST2 - Mouse Configuration
+Conflicts:      yast2-installation < 2.18.2
+Summary:        YaST2 - Mouse Configuration
 
 %description
 Configuration module to configure the console mouse.
