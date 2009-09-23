@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep 23 16:26:49 CEST 2009 - jdsn@suse.de
+
+- fix title for YaST control center (bnc#540608)
+- 2.18.2 
+
+-------------------------------------------------------------------
 Thu Jul 30 20:56:18 CEST 2009 - jdsn@suse.de
 
 - disabled to call sax2 when GPM configuration is called in

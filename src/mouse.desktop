@@ -19,7 +19,7 @@ X-SuSE-YaST-AutoInstResource=
 Icon=yast-mouse
 Exec=/sbin/yast2 mouse 
 
-Name=GPM Configuration
-GenericName=Change the console mouse model
+Name=Mouse on Text Console (GPM)
+GenericName=Change the text console mouse model
 X-KDE-SubstituteUID=true
 StartupNotify=true
