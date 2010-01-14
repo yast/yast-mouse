@@ -17,9 +17,8 @@ X-SuSE-YaST-SortKey=
 X-SuSE-YaST-AutoInstResource=
 
 Icon=yast-mouse
-Exec=/sbin/yast2 mouse 
+Exec=xdg-su -c "/sbin/yast2 mouse"
 
 Name=Mouse on Text Console (GPM)
 GenericName=Change the text console mouse model
-X-KDE-SubstituteUID=true
 StartupNotify=true
