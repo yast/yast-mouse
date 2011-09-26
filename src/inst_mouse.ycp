@@ -93,10 +93,10 @@ Wizard::SetContents(_("Mouse configuration"), contents,
 		GetInstArgs::enable_back(), GetInstArgs::enable_next()
 );
 
-Wizard::SetDesktopIcon("mouse");
-if( Stage::initial() ) {
-	Wizard::SetTitleIcon( "mouse" );
-}
+if( Stage::initial() )
+    Wizard::SetTitleIcon( "mouse" );
+else
+    Wizard::SetDesktopTitleAndIcon("mouse");
 
 Mouse::Set( Mouse::mouse );
 
