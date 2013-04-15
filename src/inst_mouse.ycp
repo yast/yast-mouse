@@ -3,7 +3,7 @@ FILE          : inst_mouse.ycp
 ***************
 PROJECT       : YaST2 - Yet another Setup Tool
               :
-AUTHOR        : Marcus Sch‰fer <ms@suse.de>
+AUTHOR        : Marcus Sch√§fer <ms@suse.de>
               :
 BELONGS TO    : YaST2 - GPM mouse configuration
               :
@@ -17,7 +17,7 @@ STATUS        : Development
 * File:	inst_mouse.ycp
 * Package:	Mouse configuration
 * Summary:	Main client
-* Authors:	Marcus Sch‰fer <ms@suse.de>
+* Authors:	Marcus Sch√§fer <ms@suse.de>
 */
 {
 textdomain "mouse";
