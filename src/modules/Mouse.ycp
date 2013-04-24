@@ -54,6 +54,8 @@ list<map> plist = [];               // list got from last probing
 map<string, list> mice = $[];
 boolean first_proposal = true;
 
+include "mouse/mouse_raw.ycp";
+
 //==========================================
 // Set...
 //------------------------------------------
@@ -187,9 +189,7 @@ define list<map> do_really_probe( boolean manual ) ``{
 		// ...
 		// search mouse in raw database (file access)
 		// ---
-		mice = (map<string,list>)eval(SCR::Read (
-			.target.yast2, "mouse_raw.ycp")
-		);
+		mice = get_mouse_db();
 		list<list> tl = maplist( string mouse_id, list mouse_data, mice, ``{
 			mouse_data[1,"id"] = mouse_id;
 			return(mouse_data);
@@ -289,11 +289,8 @@ global define void Set( string mouse_id ) ``{
 	// ...
 	// Get mouse data base for possible retranslation.
 	// ---
-	mice = (map<string, list>)eval(SCR::Read (
-		.target.yast2, ["mouse_raw.ycp", $[]]
-	));
-	locale translate = mice[mouse_id, 0]:mouse_id;
-	name = (string) eval (translate);
+	mice = get_mouse_db();
+	name = mice[mouse_id, 0]:mouse_id;
 	y2milestone ("Mouse '%1', name '%2'", mouse_id, name);
 	// ...
 	// Overwrite perhaps probed data only if the
@@ -325,9 +322,7 @@ global define string MakeProposal(
 	);
 	string n = "";
 	if( size(mice)==0 || first_proposal || language_changed ) {
-		mice = (map<string, list>)eval(SCR::Read(
-			.target.yast2, ["mouse_raw.ycp", $[]]
-		));
+		mice = get_mouse_db();
 	}
 	first_proposal = false;
 
@@ -365,15 +360,11 @@ global define map<string, string> Selection() ``{
 	// try translated mouse.ycp first, if this doesnt exist
 	// use the raw (untranslated) version
 	// ---
-	locale translate = "";
 	string mouse_name = "";
-	mice = (map<string, list>)eval(SCR::Read (
-		.target.yast2, ["mouse_raw.ycp", $[]]
-	));
+	mice = get_mouse_db();
 	map<string, string> selection =  mapmap(
 		string mouse_code, list mouse_value, mice, ``{
-		translate = mouse_value[0]:"";
-		mouse_name = (string)eval(translate);
+		mouse_name = mouse_value[0]:"";
 		return $[mouse_code: mouse_name];
 	});
 	if (Mode::config()) {

@@ -6,6 +6,8 @@
 {
 textdomain "mouse";
 
+define map<string, list> get_mouse_db() {
+
 // map <string, list>
 return ($[
 "00_ps2"   : [ _("PS/2 mouse (Aux-port)"),
@@ -60,6 +62,7 @@ return ($[
                $["mset":"",            "gpm":"",         "device":"",                "emul3":false, "wheels":0 ]],
 ]);
 
+}
 
 /* EOF */
 }
