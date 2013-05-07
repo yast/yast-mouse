@@ -1,6 +1,7 @@
 Makefile
 Makefile.am
 Makefile.in
+*.ami
 aclocal.m4
 autom4te.cache
 config.cache
@@ -22,3 +23,9 @@ mkinstalldirs
 stamp-h*
 *.pot
 Makefile.am.common
+.dep
+*.ybc
+src/modules/mouse
+doc/autodocs/*.html
+package/*.bz2
+package/*.spec

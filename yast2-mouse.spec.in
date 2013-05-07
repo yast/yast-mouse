@@ -38,7 +38,8 @@ rm -f $RPM_BUILD_ROOT@desktopdir@/mouse.desktop
 
 %files
 %defattr(-,root,root)
-@ydatadir@/*.ycp
+%dir @yncludedir@/mouse
+@yncludedir@/mouse/*
 @moduledir@/*
 @clientdir@/*.ycp
 %ifnarch s390 s390x

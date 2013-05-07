@@ -12,6 +12,11 @@ client_DATA =			\
 desktop_DATA =			\
 	mouse.desktop
 
-EXTRA_DIST = $(client_DATA) $(desktop_DATA)
+yncludedir = @yncludedir@/mouse
+
+ynclude_DATA =			\
+	include/mouse/mouse_raw.ycp
+
+EXTRA_DIST = $(client_DATA) $(desktop_DATA) $(ynclude_DATA)
 
 include $(top_srcdir)/Makefile.am.common

@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Apr 24 15:16:03 UTC 2013 - lslezak@suse.cz
+
+- move data/mouse_raw.ycp to include/mouse/mouse_raw.ycp
+  (make the future transition to ruby easier)
+- 2.24.1
+
+-------------------------------------------------------------------
 Mon Apr 15 09:15:57 UTC 2013 - lslezak@suse.cz
 
 - converted ISO-8859 characters in comments to UTF-8
