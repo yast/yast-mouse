@@ -19,6 +19,8 @@ Provides:       y2t_inst-mouse
 Obsoletes:      y2t_inst-mouse
 # Mouse-related installation scripts were moved here
 Conflicts:      yast2-installation < 2.18.2
+Requires:       yast2-ruby-bindings >= 1.0.0
+
 Summary:        YaST2 - Mouse Configuration
 
 %description
@@ -41,7 +43,7 @@ rm -f $RPM_BUILD_ROOT@desktopdir@/mouse.desktop
 %dir @yncludedir@/mouse
 @yncludedir@/mouse/*
 @moduledir@/*
-@clientdir@/*.ycp
+@clientdir@/*.rb
 %ifnarch s390 s390x
 @desktopdir@/mouse.desktop
 %endif
