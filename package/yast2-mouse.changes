@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jul 31 08:33:00 UTC 2013 - yast-devel@opensuse.org
+
+- converted from YCP to Ruby by YCP Killer
+  (https://github.com/yast/ycp-killer)
+- version 3.0.0
+
+-------------------------------------------------------------------
 Wed Apr 24 15:16:03 UTC 2013 - lslezak@suse.cz
 
 - move data/mouse_raw.ycp to include/mouse/mouse_raw.ycp
